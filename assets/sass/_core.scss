@@ -1002,6 +1002,8 @@ h1.entry-title {
 	}
 }
 
+
+/* if user is logged-in */
 @media screen and (max-width: 782px) {
 	body.logged-in.admin-bar {
 		#mobileNav .main-menu-mobile {
@@ -1009,4 +1011,12 @@ h1.entry-title {
 		}
 	}
 }
+@media screen and (min-width: 783px) and (max-width: $tabwidth) {
+	body.logged-in.admin-bar {
+		#mobileNav .main-menu-mobile {
+			padding-top:30px;
+		}
+	}
+}
+
 
