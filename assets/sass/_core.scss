@@ -365,9 +365,9 @@ body.hasbanner .main-navigation {
 	position: relative;
 	width: 100%;
 	float: left;
-	height: 420px;
+	height: 430px;
 	@include xs {
-		height: 100vh;
+		height: 375px;
 	}
 	@include tab {
 		height: 600px;
@@ -1001,3 +1001,12 @@ h1.entry-title {
 		margin: 5px;
 	}
 }
+
+@media screen and (max-width: 782px) {
+	body.logged-in.admin-bar {
+		#mobileNav .main-menu-mobile {
+			padding-top:45px;
+		}
+	}
+}
+
