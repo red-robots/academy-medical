@@ -14,8 +14,9 @@ get_header();
 	$row2BtnType = ( isset($row2CTA['button_type']) && $row2CTA['button_type'] ) ? $row2CTA['button_type'] : 'internal';
 	$row2BtnLink = ( isset($row2CTA[$row2BtnType.'_link']) && $row2CTA[$row2BtnType.'_link'] ) ? $row2CTA[$row2BtnType.'_link']:'';
 	$part2 = ($row2BtnLink) ? parse_external_url($row2BtnLink) : '';
+	$parallaxBg = ($row2bg) ? ' data-parallax="scroll" data-position="right" data-image-src="'.$row2bg['url'].'" data-natural-width="'.$row2bg['width'].'" data-natural-height="'.$row2bg['height'].'"':'';
 	if($row2_content1 || $row2_content2) { ?>
-	<section class="row2 cf <?php echo $row2_class ?>">
+	<section class="row2 cf <?php echo $row2_class ?>"<?php echo $parallaxBg ?>>
 		<div class="wrapper fadeInUp wow" data-wow-delay=".6s">
 			<div class="flexwrap">
 				<?php if ($row2_content1) { ?>
@@ -37,9 +38,8 @@ get_header();
 				<?php } ?>
 			</div>
 		</div>
-		<?php if ($row2bg) { ?>
-		<div class="bg" style="background-image:url('<?php echo $row2bg['url']?>');"></div>	
-		<?php } ?>
+		<div class="bottom-arrow"></div>
+		
 	</section>
 	<?php } ?>
 
@@ -61,8 +61,8 @@ get_header();
 	);
 	$advantages = new WP_Query($args);
 	if ( $advantages->have_posts() ) { ?>
-	<section class="row3 cf fadeIn wow" data-wow-delay=".5s">
-		<div class="wrapper">
+	<section class="row3 cf">
+		<div class="wrapper fadeIn wow" data-wow-delay=".5s">
 			<?php if ($row3_section_title) { ?>
 				<h2 class="stitle text-center"><?php echo $row3_section_title ?></h2>
 			<?php } ?>

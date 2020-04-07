@@ -118,8 +118,15 @@ body {
 	}
 }
 .logo {
-	width: 150px;
+	width: 120px;
+	position: relative;
+	@include xs {
+		width: 130px;
+		top: 0;
+		top: -10px;
+	}
 	@include tab {
+		top: 0;
 		width: 150px;
 	}
 	a,img {
@@ -180,14 +187,47 @@ body.hasbanner .main-navigation {
 		color: #FFF;
 	}
 }
+#overlay {
+	display: none;
+	background: rgba(0,0,0,.85);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 500;
+}
+#mobileNav {
+	display: none;
+	transition: all ease-out .3s;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	right: -100%;
+	z-index: 3000;
+	@include xs {
+		right: -350px;
+	}
+	.main-menu-mobile {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: #FFF;
+		overflow: auto;
+	}
+}
+
 .menu-toggle {
 	display: block;
 	position: absolute;
-	top: 0;
-	right: 25px;
+	top: 10px;
+	right: 30px;
 	width: 40px;
-	height: 75px;
-	z-index: 30;
+	height: 50px;
+	z-index: 503;
 	-webkit-appearance: none;
 	box-shadow: none;
 	border: none;
@@ -232,12 +272,103 @@ body.hasbanner .main-navigation {
 	}
 }
 
+/* Mobile Menu */
+@media screen and (max-width: $tabwidth) {
+	.site-header {
+		.topbuttons {
+			right: 100px;
+			a {
+				padding: 23px 18px 17px;
+			}
+		} 
+	}
+	.main-navigation {
+		display: none;
+	}
+	#mobileNav {
+		display: block;
+		max-width: 350px;
+		ul {
+			margin: 0 0;
+			padding: 0 0;
+			list-style: none;
+		}
+		li {
+			position: relative;
+		}
+		a {
+			display: inline-block;
+			text-decoration: none;
+			color: $primary;
+			position: relative;
+		} 
+		ul#mobile-menu {
+			padding-bottom: 50px;
+			border-top: 1px solid tint($primary,70%);
+		}
+		ul.menu a {
+			display: block;
+			font-size: 1.25rem;
+			padding: 0.5em 1.2em;
+			border-bottom: 1px solid tint($primary,70%);
+		}
+		ul.menu > li:hover > a {
+			background: tint($primary,85%);
+		}
+		ul.menu > li.current_page_item > a {
+			background: $primary;
+			color: #FFF;
+		}
+		ul#topcustom {
+			padding-top: 5px;
+		}
+		ul#topcustom li.homepage a {
+			font-size: 1.85rem;
+			border-bottom: none;
+			padding: 0.35em 1em;
+		}
+	}
+	
+	body.open-menu {
+		#overlay {
+			display: block;
+		}
+		#mobileNav {
+			right: 0;
+			transform: translateX(0);
+		}
+		.menu-toggle  {
+			top: 15px;
+			right: 370px;
+			transform: scale(0.7);
+			span.bar:before, span.bar:after {
+				background: #FFF;
+			}
+		}
+	}
+}
+@media screen and (max-width: $xswidth) {
+	#mobileNav {
+		max-width: 85%; 
+	}
+	body.open-menu {
+		.menu-toggle  {
+			right: 87%;
+			transform: scale(0.6);
+		}
+	}
+}
+
+
 /* Banner */
 .banner {
 	position: relative;
 	width: 100%;
 	float: left;
-	height: 400px;
+	height: 420px;
+	@include xs {
+		height: 100vh;
+	}
 	@include tab {
 		height: 600px;
 	}
@@ -310,6 +441,10 @@ body.hasbanner .main-navigation {
 		position: relative;
 		padding-bottom: 25px;
 		border-bottom: 2px solid $secondary;
+		margin-top: 12vh;
+		@include tab {
+			margin-top: 0;
+		}
 	}
 	.swiper-wrapper, .swiper-slide {
 		width: 100%;
@@ -325,28 +460,44 @@ body.hasbanner .main-navigation {
 	.smallTxt { 
 		font-family: $font_secondary;
 		text-transform: uppercase;
+		transition: all ease-out .3s;
 	}
 	.largeTxt {
-		font-size: 4em;
+		font-size: 2rem;
 		font-weight: 600;
 		line-height: 1.1;
 		margin: 0 0 5px;
 		color: $primary;
+		@include xs {
+			font-size: 3em;
+		}
+		@include tab {
+			font-size: 4em;
+		}
 	}
 	.smallTxt {
-		font-size: 2.6em;
+		font-size: 1.7rem;
 		font-weight: 500;
 		line-height: 1.2;
 		color: #FFF;
 		text-shadow: 0 1px 5px rgba(0,0,0,0.2);
+		@include xs {
+			font-size: 2rem;
+		}
+		@include tab {
+			font-size: 2.6em;
+		}
 	}
 }
 .scrolldown {
 	position: absolute;
 	left: 0;
-	bottom: 0;
+	bottom: 2vh;
 	width: 100%;
 	z-index: 15;
+	@include tab {
+		bottom: 0;
+	}
 	#scrolldown {
 		display: block;
 		width: 35px;
@@ -356,6 +507,10 @@ body.hasbanner .main-navigation {
 		top: 0;
 		left: 10px;
 		margin-top: -10%;
+		transform: scale(0.75);
+		@include tab {
+			transform: none;
+		}
 		span.arrow {
 			display: inline-block;
 			width: 100%;
@@ -426,26 +581,27 @@ body.hasbanner {
 .row2 {
 	position: relative;
 	z-index: 5;
-	&:after {
+	overflow: hidden;
+	&:before {
 		content:"";
-		display: inline-block;
-		width: 0; 
-		height: 0;
-		border-top: 40px solid #FFF;
-   		border-left: 42px solid transparent; 
-   		border-right: 42px solid transparent; 
+		display: block;
+		width: 100%;
+		height: 100%;
+		background: rgba(255,255,255,.85);
 		position: absolute;
-		bottom: -25px;
-		left: 50%;
-		transform: translateX(-50%);
+		top: 0;
+		left: 0;
+		@include tab {
+			background: rgba(255,255,255,.75);
+		}
 	}
 	.wrapper {
 		padding-top: 40px;
-		padding-bottom: 40px;
-		z-index: 10;
+		padding-bottom: 80px;
+		z-index: 15;
 		@include tab {
 			padding-top: 60px;
-			padding-bottom: 60px;
+			padding-bottom: 100px;
 		}
 	}
 	.flexwrap {
@@ -482,15 +638,17 @@ body.hasbanner {
 		}
 	}
 	.bg {
-		background-size: cover;
-		background-position: top right;
+		background-size: 70%;
+		background-attachment: scroll;
+		background-position: bottom right;
 		background-repeat: no-repeat;
 		background-color: #FFF;
-		width: 50%;
+		width: 100%;
 		height: 100%;
 		position: absolute;
 		top: 0;
 		right: 0;
+		z-index: 2;
 		&:before {
 			content:"";
 			display: block;
@@ -500,6 +658,33 @@ body.hasbanner {
 			top: 0;
 			right: 0;
 			background: rgba(255,255,255,.85);
+		}
+	}
+	.bottom-arrow {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 40px;
+		z-index: 16;
+		overflow: hidden;
+		&:before,
+		&:after {
+			content:"";
+			display: block;
+			width: 61.5%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			background: #eef0f1;
+		}
+		&:before {
+			left: -12%;
+			transform: skew(45deg);
+		}
+		&:after {
+			right: -12%;
+			transform: skew(-45deg);
 		}
 	}
 }
@@ -520,6 +705,8 @@ body.hasbanner {
 	background: $gray;
 	padding-top: 50px;
 	padding-bottom: 80px;
+	position: relative;
+	z-index: 30;
 	.flexwrap {
 		margin-left: -15px;
 		margin-right: -15px;
@@ -675,6 +862,16 @@ h1.entry-title {
 	.site-main {
 		padding-top: 50px;
 		height: 35em;
+	}
+}
+.parallax-window {
+    min-height: 400px;
+    background: transparent;
+}
+.parallax-mirror {
+	@include tab {
+		width: 80%!important;
+		left: 20%!important;
 	}
 }
 

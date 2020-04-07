@@ -24,8 +24,8 @@
   * Edit the variables as per your project requirements.
   */
 
-var project             = 'FS FOOD GROUP'; // Project Name.
-var projecturl          = 'http://bellaworks/fsfoodgroup/'; // Project URL. Could be something like localhost:8888.
+var project             = 'Academy Medical'; // Project Name.
+var projecturl          = 'http://bellaworks/academy-medical/'; // Project URL. Could be something like localhost:8888.
 
 
 var styleSRC            = './assets/sass/style.scss'; // Path to main .scss file.
@@ -192,7 +192,8 @@ gulp.task( 'vendorsJs', function() {
 	//gulp.src( jsVendorSRC )
 	gulp.src( [
 		'./assets/js/vendors/swiper.js',
-		'./assets/js/vendors/wow.js'
+		'./assets/js/vendors/wow.js',
+		'./assets/js/vendors/parallax.js'
 		] )
 		.pipe( concat( jsVendorFile + '.js' ) )
 		.pipe( gulp.dest( jsVendorDestination ) )

@@ -16,6 +16,14 @@ $customClass = (get_field("banner")) ? 'hasbanner':'nobanner';
 <body <?php body_class($customClass); ?>>
 <div id="page" class="site cf">
 	<a class="skip-link sr" href="#content"><?php esc_html_e( 'Skip to content', 'bellaworks' ); ?></a>
+	<dvi id="overlay"></dvi>
+	<div id="mobileNav">
+		<div class="main-menu-mobile">
+			<ul id="topcustom" class="menu"><li class="homepage"><a href="<?php echo get_site_url(); ?>"><i class="fas fa-home"></i><span class="sr">Home</span></a></li></ul>
+			<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'mobile-menu','container'=>false ) ); ?>
+		</div>
+	</div>
+	<button id="menu-toggle" class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><span class="sr"><?php esc_html_e( 'MENU', 'bellaworks' ); ?></span><span class="bar"></span></button>
 
 	<header id="masthead" class="site-header" role="banner">
 		<div class="wrapper">
@@ -34,10 +42,9 @@ $customClass = (get_field("banner")) ? 'hasbanner':'nobanner';
 		        <?php } ?>
 
 				<nav id="site-navigation" class="main-navigation" role="navigation">
-					<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
+					<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu','container_class'=>'main-menu' ) ); ?>
 				</nav><!-- #site-navigation -->
 			</div>
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><span class="sr"><?php esc_html_e( 'MENU', 'bellaworks' ); ?></span><span class="bar"></span></button>
 		</div><!-- wrapper -->
 	</header><!-- #masthead -->
 
