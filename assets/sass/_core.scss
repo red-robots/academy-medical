@@ -136,6 +136,17 @@ body {
 		float: left;
 	}
 }
+body.subpage {
+	.site-header {
+		background: $gray;
+		border-bottom: 1px solid shade($gray,2%);
+	}
+	.logo {
+		@include tab {
+			top: -12px;
+		}
+	}
+}
 
 /* Navigation */
 .main-navigation {
@@ -143,7 +154,7 @@ body {
 	width: 100%;
 	@include tab {
 		width: 70%;
-		right: -20px;
+		right: -15px;
 	}
 	ul {
 		margin: 0 0;
@@ -164,7 +175,7 @@ body {
 	}
 	ul.menu > li {
 		float: left;
-		margin:0 3px;
+		margin:0 0;
 	}
 	ul.menu a {
 		display: inline-block;
@@ -174,10 +185,14 @@ body {
 	ul.menu > li > a {
 		font-size: 15px;
 		line-height: 1.2;
-		padding: 4px 12px;
+		padding: 4px 15px;
 	}
-	ul.menu > li.current_page_item > a,
 	ul.menu > li > a:hover {
+		color: #FFF;
+		background: tint($primary,45%);
+	}
+	ul.menu > li.current_page_item:hover > a,
+	ul.menu > li.current_page_item > a {
 		color: #FFF;
 		background: $primary;
 	}
@@ -860,8 +875,7 @@ h1.entry-title {
 }
 .content-area.default {
 	.site-main {
-		padding-top: 50px;
-		height: 35em;
+		min-height: 35em;
 	}
 }
 .parallax-window {
@@ -872,6 +886,260 @@ h1.entry-title {
 	@include tab {
 		width: 80%!important;
 		left: 20%!important;
+	}
+}
+
+/* Hero */
+.hero {
+	position: relative;
+	width: 100%;
+	position: relative;
+	background-size: cover;
+	background-position: right center;
+	background-repeat: no-repeat;
+	background-color: #FFF;
+	min-height: 120px;
+	@include tab {
+		min-height: 200px;
+	}
+	img.placeholder {
+		width: 100%;
+		height: auto;
+		float: left;
+	}
+	.inner {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		@include flexgroup-center();
+		&:before {
+			content:"";
+			display: block;
+			width: 80%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			opacity: 0.8;
+			background: -moz-linear-gradient(left,  rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+			background: -webkit-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+			background: linear-gradient(to right,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=1 );
+
+		}
+	}
+	.wrapper {
+		position: relative;
+		z-index: 10;
+	}
+}
+.pagetitle {
+	font-family: $font_secondary;
+	font-weight: 500;
+	font-size: 1.5em;
+	line-height: 1.2;
+	text-transform: uppercase;
+	margin: 0 0;
+	color: $primary;
+	position: relative;
+	@include xs {
+		font-size: 2em;
+	}
+	@include tab {
+		font-size: 2.5em;
+	}
+	span {
+		display: inline-block;
+		position: relative;
+		&:after {
+			content:"";
+			display: block;
+			width: 100%;
+			margin-top: 5px;
+			border-bottom: 2px solid $secondary;
+			@include tab {
+				margin-top: 15px;
+			}
+		}
+	}
+}
+/* Subpage */
+.midwrap {
+	max-width: 90%;
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin: 0 auto;
+	@include tab {
+		max-width: 1000px;
+	}
+	@include mid {
+		max-width: 900px;
+	}
+}
+.content-area  .maintext {
+	background: $primary;
+	color: #FFF;
+	text-align: center;
+	font-size: 17px;
+	line-height: 1.6;
+	.midwrap {
+		padding-top: 50px;
+		padding-bottom: 50px;
+		@include mid {
+			padding-top: 60px;
+			padding-bottom: 60px;
+		}
+	}
+}
+.twocol-content {
+	.wrapper {
+
+	}
+	.col {
+		width: 100%;
+		position: relative;
+	}
+	.contentrow {
+		padding-top: 50px;
+		padding-bottom: 50px;
+		color: tint($primary,10%);
+		@include tab {
+			padding-top: 70px;
+			padding-bottom: 70px;
+		}
+		border-top: 1px solid shade($gray,6%);
+		&.first {
+			border-top: none;
+		}
+	}
+
+	.contentrow.twocol {
+		.col {
+			width: 100%;
+			@include tab {
+				width: 50%;
+			}
+			&.title {
+				margin-bottom: 30px;
+				@include tab {
+					padding-right: 30px;
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+	h2.hd {
+		font-family: $font_secondary;
+		font-size: 1.8em;
+		font-weight: 500;
+		line-height: 1.2;
+		text-transform: uppercase;
+		margin: 0 0;
+		color: $primary;
+		position: relative;
+		&:after {
+			content:"";
+			display: block;
+			width: 20%;
+			margin-top: 15px;
+			border-bottom: 1px solid $secondary;
+		}
+	}
+	.col.text {
+		ul,ol {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+		ul {
+			margin: 0 0;
+			padding: 0 0;
+			list-style: none;
+		}
+		ul > li {
+			position: relative;
+			padding-left: 20px;
+			margin-bottom: 15px;
+			&:before {
+				content:"";
+				display: inline-block;
+				width: 0;
+				height: 0;
+				border-left: 8px solid $secondary;
+				border-top: 4px solid transparent;
+				border-bottom: 4px solid transparent;
+				position: absolute;
+				top: 5px;
+				left: 0;
+			}
+		}
+	}
+}
+.bluebox-area {
+	width: 100%;
+	position: relative;
+	margin-top: 30px;
+	.bluebox {
+		background: $secondary;
+		color: #FFF;
+		padding: 30px;
+	}
+	h3 {
+		font-size: 1.5em;
+		font-weight: 500;
+		line-height: 1.3;
+		margin: 0 0 10px;
+	}
+}
+.bottom-section {
+	background-color: $gray;
+	background-size: cover;
+	background-position: center right;
+	background-repeat: no-repeat;
+	color: $primary;
+	position: relative;
+	.wrapper {
+		z-index: 10;
+		padding-top: 60px;
+		padding-bottom: 60px;
+		@include tab {
+			padding-top: 80px;
+			padding-bottom: 80px;
+		}
+		@include mid {
+			padding-top: 100px;
+			padding-bottom: 100px;
+		}
+	}
+	.txt1,
+	.txt2 {
+		font-family: $font_secondary;
+		line-height: 1.3;
+		color: $primary;
+	}
+	.txt1 {
+		font-size: 1.7em;
+		font-weight: 600;
+		margin: 0 0 5px;
+		@include tab {
+			font-size: 2.2em;
+		}
+	}
+	.txt2 {
+		font-size: 1.5em;
+		margin: 0 0;
+		@include tab {
+			font-size: 2em;
+		}
+	}
+	.textcol {
+		width: 80%;
+		@include tab {
+			width: 70%;
+		}
+		@include mid {
+			width: 60%;
+		}
 	}
 }
 
