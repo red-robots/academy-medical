@@ -21,13 +21,21 @@ $has_header_image = ($header_image) ? 'has-header-image':'no-header-image';
 	<main id="main" class="site-main cf" role="main">
 
 		<?php while ( have_posts() ) : the_post(); ?>
-			
+
+			<?php
+			$mainText = strip_tags(get_the_content());
+			$mainText = preg_replace('/\s+/', '', $mainText);
+			if (strpos($mainText, 'string(0)') !== false) {
+			    $mainText = '';
+			}
+			?>
+			<?php if ( $mainText ) { ?>
 			<section class="maintext cf">
 				<div class="midwrap">
 					<?php the_content(); ?>
 				</div>
-				
 			</section>
+			<?php } ?>
 
 			<?php  
 			$sections = get_field("twoColContent");
