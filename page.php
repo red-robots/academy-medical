@@ -36,7 +36,13 @@ $has_header_image = ($header_image) ? 'has-header-image':'no-header-image';
 				<?php $i=1; foreach ($sections as $s) { 
 				$title = $s['col1'];
 				$text = $s['col2'];
-				$bluebox = $s['bluebox'];
+				$hasBlueBox = ($s['hasbluebox'] && $s['hasbluebox']=='yes') ? true : false;
+				if($hasBlueBox) {
+					$bluebox = $s['bluebox'];
+				} else {
+					$bluebox = '';
+				}
+				
 				$class = ($title && $text) ? 'twocol':'full';
 				if($i==1) {
 					$class .= ' first';

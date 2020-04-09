@@ -21,6 +21,12 @@ main:focus, div:focus, article:focus {
 a,input,button {
 	transition: all ease-out .3s;
 }
+a {
+	color: #0a81fb;
+	&:hover {
+		color: tint(#0a81fb,50%);
+	}
+}
 pre {
 	font-family: $font_pre;
 	font-size: 13px;
@@ -915,7 +921,7 @@ h1.entry-title {
 		&:before {
 			content:"";
 			display: block;
-			width: 80%;
+			width: 60%;
 			height: 100%;
 			position: absolute;
 			top: 0;
@@ -1071,6 +1077,23 @@ h1.entry-title {
 				position: absolute;
 				top: 5px;
 				left: 0;
+			}
+			ul {
+				padding-top: 15px;
+				padding-left: 30px;
+			}
+			ul > li {
+				padding-left: 15px;
+				&:before {
+					width: 5px;
+					height: 5px;
+					border: none;
+					background: $secondary;
+					border-radius: 100px;
+					position: absolute;
+					top: 8px;
+					left: 0;
+				}
 			}
 		}
 	}
