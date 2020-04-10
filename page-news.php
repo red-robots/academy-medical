@@ -1,15 +1,6 @@
 <?php
 /**
- * The template for displaying all pages.
- *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages
- * and that other 'pages' on your WordPress site may use a
- * different template.
- *
- * @link https://codex.wordpress.org/Template_Hierarchy
- *
- * @package bellaworks
+ * Template Name: News
  */
 
 get_header(); 
@@ -87,13 +78,11 @@ $has_header_image = ($header_image) ? 'has-header-image':'no-header-image';
 			<?php } ?>
 
 			<?php 
-			$bottomtext = get_field("bottom_text"); 
-			$bottomImg = get_field("bottom_image");
-			$text1 =  (isset($bottomtext['text1']) && $bottomtext['text1']) ? $bottomtext['text1'] : '';
-			$text2 =  (isset($bottomtext['text2']) && $bottomtext['text2']) ? $bottomtext['text2'] : '';
-			$bottomStyle = ($bottomImg) ? ' style="background-image:url('.$bottomImg['url'].')"':'';
-			$button_name = get_field("button_name");
-			$button_link = get_field("button_link");
+				$bottomtext = get_field("bottom_text"); 
+				$bottomImg = get_field("bottom_image");
+				$text1 =  (isset($bottomtext['text1']) && $bottomtext['text1']) ? $bottomtext['text1'] : '';
+				$text2 =  (isset($bottomtext['text2']) && $bottomtext['text2']) ? $bottomtext['text2'] : '';
+				$bottomStyle = ($bottomImg) ? ' style="background-image:url('.$bottomImg['url'].')"':'';
 			?>
 
 			<?php if ($bottomtext) { ?>
@@ -105,11 +94,6 @@ $has_header_image = ($header_image) ? 'has-header-image':'no-header-image';
 						<?php } ?>
 						<?php if ($text2) { ?>
 						<p class="txt2"><?php echo $text2 ?></p>	
-						<?php } ?>
-						<?php if ($button_name && $button_link) { ?>
-						<div class="ctadiv">
-							<a href="<?php echo $button_link ?>" class="btn-default lg"><?php echo $button_name ?></a>
-						</div>	
 						<?php } ?>
 					</div>
 				</div>

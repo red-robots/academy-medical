@@ -594,7 +594,12 @@ body.hasbanner {
 	padding: 10px 20px;
 	border-radius: 4px;
 	color: #FFF;
+	&.lg {
+		font-size: 18px;
+		padding: 12px 25px;
+	}
 	&:hover {
+		color: #FFF;
 		background: $secondary;
 		box-shadow: 0 0 8px rgba(0,0,0,0.45);
 	}

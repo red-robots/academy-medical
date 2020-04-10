@@ -796,7 +796,8 @@ body.hasbanner .site-header{position:absolute;top:0;left:0;width:100%}
 .site-content{position:relative;width:100%;float:left}
 .ctadiv{margin-top:20px}
 .btn-default{display:inline-block;text-decoration:none;cursor:pointer;background:#23336a;font-size:15px;line-height:1.1;padding:10px 20px;border-radius:4px;color:#FFF}
-.btn-default:hover{background:#4497ce;box-shadow:0 0 8px rgba(0,0,0,0.45)}
+.btn-default.lg{font-size:18px;padding:12px 25px}
+.btn-default:hover{color:#FFF;background:#4497ce;box-shadow:0 0 8px rgba(0,0,0,0.45)}
 .row2{position:relative;z-index:5;overflow:hidden}
 .row2:before{content:"";display:block;width:100%;height:100%;background:rgba(255,255,255,0.85);position:absolute;top:0;left:0}
 @media(min-width:820px){.row2:before{background:rgba(255,255,255,0.75)}
