@@ -905,7 +905,8 @@ h1.entry-title{font-family:"PT Sans Narrow",sans-serif;font-size:3em;font-weight
 to{width:100%}
 }@keyframes animateBorderBottom{from{width:0}
 to{width:100%}
-}.site-footer{background:#23336a;color:#FFF;font-size:13px;width:100%;float:left;padding-top:30px;padding-bottom:30px}
+}#wait{display:none;position:relative;top:-70px}
+.site-footer{background:#23336a;color:#FFF;font-size:13px;width:100%;float:left;padding-top:30px;padding-bottom:30px}
 .site-footer .footer-content{max-width:100%;width:100%;margin:0 auto;padding-left:30px;padding-right:30px}
 @media(min-width:960px){.site-footer .footer-content{max-width:1200px}
 }.site-footer a{display:inline-block;text-decoration:none;color:#FFF}

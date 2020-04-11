@@ -219,3 +219,127 @@ function parse_external_url( $url = '', $internal_class = 'internal-link', $exte
 
     return $output;
 }
+
+function get_images_from_website($imageURL) {
+    $url_to_image = $imageURL;
+    $dir = wp_get_upload_dir();
+    $path = $dir['path'];
+    $parts = explode("uploads/",$path);
+    $uploadsDIR = $parts[0] . 'uploads/imports/';
+
+    $ch = curl_init($url_to_image);
+    $my_save_dir = $uploadsDIR;
+    $filename = basename($url_to_image);
+    $complete_save_loc = $my_save_dir . $filename;
+    $fp = fopen($complete_save_loc, 'wb');
+    curl_setopt($ch, CURLOPT_FILE, $fp);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_exec($ch);
+    curl_close($ch);
+    fclose($fp);
+    return ( file_exists($complete_save_loc) ) ?  $complete_save_loc : '';
+}
+
+add_action( 'init', 'extractdata' );
+function extractdata() {
+   wp_register_script( "extractdata", get_stylesheet_directory_uri() . '/assets/js/extract.js', array('jquery') );
+   wp_localize_script( 'extractdata', 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
+   wp_enqueue_script( 'jquery' );
+   wp_enqueue_script( 'extractdata' );
+}
+
+
+add_action( 'wp_ajax_nopriv_extract_data_from_website', 'extract_data_from_website' );
+add_action( 'wp_ajax_extract_data_from_website', 'extract_data_from_website' );
+function extract_data_from_website() {
+    if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+        $objects = ($_POST['objects']) ? $_POST['objects'] : '';
+        $post_type = ($_POST['posttype']) ? $_POST['posttype'] : '';
+        $imagesUploaded = array();
+        $file_uploads = '';
+        $file_info = array();
+        if($objects) {
+            foreach($objects as $obj) {
+                $title = $obj['title'];
+                $imageURL = $obj['image'];
+                $path = get_images_from_website($imageURL);
+                if($path) {
+                    $imagesUploaded[] = $imageURL;
+                    $file_uploads .= $imageURL.'<br>';
+                    $name = basename($imageURL);
+                    $filename = 'imports/' . $name;
+                    $file_info[] = array(
+                                'title'=>'',
+                                'category'=>$title,
+                                'image_url'=>$filename,
+                                'filename'=>$name,
+                                'website'=>''
+                            );
+                }
+            }
+        }
+
+        if($file_info) {
+            $json = json_encode($file_info,JSON_PRETTY_PRINT);
+            $dir = wp_get_upload_dir();
+            $path = $dir['path'];
+            $parts = explode("uploads/",$path);
+            $file = $parts[0] . 'uploads/imports/data.json';
+            $myfile = fopen($file, "w") or die("Unable to open file!");
+            $txt = $json;
+            fwrite($myfile, $txt);
+            fclose($myfile);
+        }
+        $response['uploaded'] = ($imagesUploaded) ? $imagesUploaded : '';
+        $message = '';
+        if($file_uploads) {
+            $message = '<div class="alert alert-success">'.$file_uploads.'</div>';
+        }
+        $response['message'] = $message;
+        echo json_encode($response);
+    }
+    else {
+        header("Location: ".$_SERVER["HTTP_REFERER"]);
+    }
+    die();
+}
+
+function search_attachment($filename) {
+    global $wpdb;
+    if(empty($filename)) return '';
+    $parts = pathinfo($filename);
+    $title =  trim($parts['filename']);
+    $query = "SELECT * FROM {$wpdb->prefix}posts WHERE post_title='".$title."' AND post_type='attachment'";
+    $result = $wpdb->get_row($query);
+    return ($result) ? $result->ID : '';
+}
+
+function get_data_json_file() {
+    $jsonfile = get_import_dir() . 'data.json';
+    return $jsonfile;
+}
+
+function get_import_dir() {
+    $dir = wp_get_upload_dir();
+    $path = $dir['path'];
+    $parts = explode("uploads/",$path);
+    return $parts[0] . 'uploads/imports/';
+}
+
+function get_term_info($slug) {
+    global $wpdb;
+    $query = "SELECT * FROM {$wpdb->prefix}terms WHERE slug='".$slug."'";
+    $result = $wpdb->get_row($query);
+    return ($result) ?  $result : '';
+}
+
+function assigned_term_to_post($post_id,$term_id) {
+    global $wpdb;
+    $relationships = $wpdb->prefix.'term_relationships';
+    $ok = $wpdb->insert($relationships, array(
+        'object_id' => $post_id,
+        'term_taxonomy_id' => $term_id,
+    ));
+    return ($ok) ? $ok : '';
+}
+

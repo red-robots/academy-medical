@@ -1208,6 +1208,11 @@ h1.entry-title {
   	width: 100%; 
   }
 }
+#wait {
+	display: none;
+	position: relative;
+	top: -70px;
+}
 
 /* Footer */
 .site-footer {
