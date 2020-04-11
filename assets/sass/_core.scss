@@ -73,6 +73,7 @@ pre {
 	padding-left: 20px;
 	padding-right: 20px;
 	position: relative;
+	overflow: hidden;
 }
 .site {
 	position: relative;
@@ -460,11 +461,25 @@ body.hasbanner .main-navigation {
 		max-width: 550px;
 		width: 100%;
 		position: relative;
-		padding-bottom: 25px;
-		border-bottom: 2px solid $secondary;
+		// padding-bottom: 25px;
+		// border-bottom: 2px solid $secondary;
 		margin-top: 12vh;
 		@include tab {
 			margin-top: 0;
+		}
+		&:after {
+			content:"";
+			display: block;
+			width: 0%;
+			height: 2px;
+			margin-top: 25px;
+			background: $secondary;
+		}
+	}
+	.swiper-slide-active {
+		.textwrap:after {
+			width: 100%;
+			animation: animateBorderBottom 2s;
 		}
 	}
 	.swiper-wrapper, .swiper-slide {
@@ -966,8 +981,12 @@ h1.entry-title {
 			content:"";
 			display: block;
 			width: 100%;
+			height: 2px;
+			background: $secondary;
 			margin-top: 5px;
-			border-bottom: 2px solid $secondary;
+			// border-bottom: 2px solid $secondary;
+			transition: all ease .5s;
+			animation: animateBorderBottom 1s;
 			@include tab {
 				margin-top: 15px;
 			}
@@ -1139,6 +1158,16 @@ h1.entry-title {
 			padding-bottom: 100px;
 		}
 	}
+	.bg {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		right: 0;
+		background-size: cover;
+		background-position: center right;
+		background-repeat: no-repeat;
+	}
 	.txt1,
 	.txt2 {
 		font-family: $font_secondary;
@@ -1169,6 +1198,15 @@ h1.entry-title {
 			width: 60%;
 		}
 	}
+}
+
+@keyframes animateBorderBottom {
+  from {
+  	width: 0%
+  }
+  to {
+  	width: 100%; 
+  }
 }
 
 /* Footer */

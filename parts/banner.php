@@ -50,7 +50,7 @@ if( is_front_page() || is_home() ) {
 	<div class="hero cf"<?php echo $style ?>>
 		<div class="inner">
 			<div class="wrapper">
-				<div class="titlediv"><h1 class="pagetitle"><span><?php echo $page_title ?></span></h1></div>
+				<div class="titlediv"><h1 class="pagetitle border-animate"><span><?php echo $page_title ?></span></h1></div>
 			</div>
 		</div>
 	</div>	

@@ -701,7 +701,7 @@ pre{font-family:"Courier 10 Pitch",Courier,monospace;font-size:13px;line-height:
 .text-center{text-align:center}
 .sr{clip:rect(1px,1px,1px,1px);position:absolute !important;height:1px;width:1px;overflow:hidden}
 .sr:focus{background-color:#333;border-radius:3px;box-shadow:0 0 2px 2px rgba(0,0,0,0.6);clip:auto !important;color:#FFF;display:block;font-size:14px;font-size:.875rem;font-weight:bold;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}
-.wrapper{max-width:1200px;width:100%;margin:0 auto;padding-left:20px;padding-right:20px;position:relative}
+.wrapper{max-width:1200px;width:100%;margin:0 auto;padding-left:20px;padding-right:20px;position:relative;overflow:hidden}
 .site{position:relative;overflow-x:hidden;overflow-y:auto}
 .flexwrap{display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-flex-direction:row;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}
 body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:15px;line-height:1.5}
@@ -772,9 +772,11 @@ body.open-menu .menu-toggle{right:87%;-webkit-transform:scale(0.6);-ms-transform
 .banner .bcaption{width:100%;height:100%;position:absolute;top:0;left:0;z-index:15;display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-flex-direction:row;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-justify-content:center;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}
 .slideTextContainer{width:100%;height:100%;margin:0 auto;position:relative}
 .slideTextContainer .inner-text{position:absolute;top:0;left:0;width:100%;height:100%;z-index:5;opacity:0;visibility:hidden;-webkit-transition:all ease-out .3s;transition:all ease-out .3s;display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-flex-direction:row;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-justify-content:flex-start;-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start}
-.slideTextContainer .textwrap{max-width:550px;width:100%;position:relative;padding-bottom:25px;border-bottom:2px solid #4497ce;margin-top:12vh}
+.slideTextContainer .textwrap{max-width:550px;width:100%;position:relative;margin-top:12vh}
 @media(min-width:820px){.slideTextContainer .textwrap{margin-top:0}
-}.slideTextContainer .swiper-wrapper,.slideTextContainer .swiper-slide{width:100%;height:100%}
+}.slideTextContainer .textwrap:after{content:"";display:block;width:0;height:2px;margin-top:25px;background:#4497ce}
+.slideTextContainer .swiper-slide-active .textwrap:after{width:100%;-webkit-animation:animateBorderBottom 2s;animation:animateBorderBottom 2s}
+.slideTextContainer .swiper-wrapper,.slideTextContainer .swiper-slide{width:100%;height:100%}
 .slideTextContainer .swiper-slide.swiper-slide-active .inner-text{opacity:1;visibility:visible}
 .slideTextContainer .largeTxt,.slideTextContainer .smallTxt{font-family:"PT Sans Narrow",sans-serif;text-transform:uppercase;-webkit-transition:all ease-out .3s;transition:all ease-out .3s}
 .slideTextContainer .largeTxt{font-size:2rem;font-weight:600;line-height:1.1;margin:0 0 5px;color:#23336a}
@@ -858,7 +860,7 @@ h1.entry-title{font-family:"PT Sans Narrow",sans-serif;font-size:3em;font-weight
 @media(min-width:380px){.pagetitle{font-size:2em}
 }@media(min-width:820px){.pagetitle{font-size:2.5em}
 }.pagetitle span{display:inline-block;position:relative}
-.pagetitle span:after{content:"";display:block;width:100%;margin-top:5px;border-bottom:2px solid #4497ce}
+.pagetitle span:after{content:"";display:block;width:100%;height:2px;background:#4497ce;margin-top:5px;-webkit-transition:all ease .5s;transition:all ease .5s;-webkit-animation:animateBorderBottom 1s;animation:animateBorderBottom 1s}
 @media(min-width:820px){.pagetitle span:after{margin-top:15px}
 }.midwrap{max-width:90%;width:100%;padding-left:20px;padding-right:20px;margin:0 auto}
 @media(min-width:820px){.midwrap{max-width:1000px}
@@ -890,7 +892,8 @@ h1.entry-title{font-family:"PT Sans Narrow",sans-serif;font-size:3em;font-weight
 .bottom-section .wrapper{z-index:10;padding-top:60px;padding-bottom:60px}
 @media(min-width:820px){.bottom-section .wrapper{padding-top:80px;padding-bottom:80px}
 }@media(min-width:960px){.bottom-section .wrapper{padding-top:100px;padding-bottom:100px}
-}.bottom-section .txt1,.bottom-section .txt2{font-family:"PT Sans Narrow",sans-serif;line-height:1.3;color:#23336a}
+}.bottom-section .bg{width:100%;height:100%;position:absolute;top:0;right:0;background-size:cover;background-position:center right;background-repeat:no-repeat}
+.bottom-section .txt1,.bottom-section .txt2{font-family:"PT Sans Narrow",sans-serif;line-height:1.3;color:#23336a}
 .bottom-section .txt1{font-size:1.7em;font-weight:600;margin:0 0 5px}
 @media(min-width:820px){.bottom-section .txt1{font-size:2.2em}
 }.bottom-section .txt2{font-size:1.5em;margin:0}
@@ -898,6 +901,10 @@ h1.entry-title{font-family:"PT Sans Narrow",sans-serif;font-size:3em;font-weight
 }.bottom-section .textcol{width:80%}
 @media(min-width:820px){.bottom-section .textcol{width:70%}
 }@media(min-width:960px){.bottom-section .textcol{width:60%}
+}@-webkit-keyframes animateBorderBottom{from{width:0}
+to{width:100%}
+}@keyframes animateBorderBottom{from{width:0}
+to{width:100%}
 }.site-footer{background:#23336a;color:#FFF;font-size:13px;width:100%;float:left;padding-top:30px;padding-bottom:30px}
 .site-footer .footer-content{max-width:100%;width:100%;margin:0 auto;padding-left:30px;padding-right:30px}
 @media(min-width:960px){.site-footer .footer-content{max-width:1200px}
