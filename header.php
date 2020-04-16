@@ -11,6 +11,7 @@
 <?php  
 $customClass = (get_field("banner")) ? 'hasbanner':'nobanner';
 ?>
+<script>var params={};location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){params[k]=v});</script>
 </head>
 
 <body <?php body_class($customClass); ?>>
