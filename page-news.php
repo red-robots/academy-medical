@@ -57,7 +57,7 @@ $rectangle = THEMEURI . 'images/rectangle.png';
 								</select>
 							</div>
 						<?php } ?>
-						<input type="submit" id="filterButton" value="Filter">
+						<input type="submit" id="filterButton" value="Filter" style="display:none;">
 					</form>
 				</div>
 				<?php } ?>
