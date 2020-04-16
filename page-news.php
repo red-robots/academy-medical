@@ -31,82 +31,109 @@ $rectangle = THEMEURI . 'images/rectangle.png';
 
 
 		<?php /* NEWS FEEDS */ ?>
+		<?php 
+		$filter_options = get_news_filter_options(); 
+		$params = array();
+		?>
 		<div class="news-section-wrapper cf">
 			<div class="wrapper cf">
+				<?php if ($filter_options) { ?>
 				<div class="filter-wrapper">
 					<form action="" method="get">
 						<span class="label">Filter By:</span>
-						<div class="select-input-field">
-							<select name="year" id="year" class="form-control selectstyle">
-								<option></option>
-								<option value="2020">2020</option>
-								<option value="2019">2019</option>
-								<option value="2018">2018</option>
-							</select>
-						</div>
-
-						<div class="select-input-field">
-							<select name="month" id="month" class="form-control selectstyle">
-								<option></option>
-								<option value="01">January</option>
-								<option value="02">February</option>
-								<option value="03">March</option>
-							</select>
-						</div>
-
-						<div class="select-input-field">
-							<select name="vendor" id="vendor" class="form-control selectstyle">
-								<option></option>
-								<option value="01">January</option>
-								<option value="02">February</option>
-								<option value="03">March</option>
-							</select>
-						</div>
+						
+						<?php foreach ($filter_options as $opt ) { 
+							$label = $opt['label'];
+							$s_id = $opt['slug'];
+							$selections = $opt['items'];
+							$params[] = $s_id;
+							?>
+							<div id="select-<?php echo $s_id; ?>" class="select-input-field" data-label="<?php echo $label ?>" data-id="<?php echo $s_id; ?>">
+								<select name="<?php echo $s_id; ?>" id="<?php echo $s_id; ?>" class="form-control selectstyle">
+									<option></option>
+									<?php foreach ($selections as $k=>$val) { ?>
+									<option value="<?php echo $k ?>"><?php echo $val ?></option>
+									<?php } ?>
+								</select>
+							</div>
+						<?php } ?>
+						<input type="submit" id="filterButton" value="Filter">
 					</form>
 				</div>
+				<?php } ?>
 
 
 				<?php  
+				$filterBy = array();
+				if($params) {
+					foreach($params as $param) {
+						if( isset($_GET[$param]) && $_GET[$param] ) {
+							$filterBy[$param] = $_GET[$param];
+						}
+					}
+				}
+
 				$posts_per_page = 9;
 				$paged = ( get_query_var( 'pg' ) ) ? absint( get_query_var( 'pg' ) ) : 1;
 				$post_type = 'post';
-				$args = array(
-					'posts_per_page'=> $posts_per_page,
-					'post_type'		=> $post_type,
-					'post_status'	=> 'publish',
-					'paged'			=> $paged,
-					'orderby'       => 'date',       
-				  	'order'         => 'DESC'
-				);
-				$posts = new WP_Query($args);
-				if ( $posts->have_posts() ) {  ?>
+				$posts = array();
+				$total = 0;
+
+				if($filterBy) {
+					$result = get_news_result_filter_by($filterBy);
+				} else {
+					$args = array(
+						'posts_per_page'=> $posts_per_page,
+						'post_type'		=> $post_type,
+						'post_status'	=> 'publish',
+						'paged'			=> $paged,
+						'orderby'       => 'date',       
+					  	'order'         => 'DESC'
+					);
+
+					$all_args = array(
+						'posts_per_page'=> -1,
+						'post_type'		=> $post_type,
+						'post_status'	=> 'publish',
+					);
+
+					$posts = get_posts($args);
+					$all = get_posts($all_args);
+					$total = count($all);
+				}
+
+				if ( $posts ) {  ?>
 				<div class="news-results">
 					<div id="newsContent">
 						<div id="newsInner" class="flexwrap">
-						<?php while ( $posts->have_posts() ) : $posts->the_post(); 
-							$content = strip_tags( get_the_content() );
+						<?php foreach($posts as $item) {
+							$id = $item->ID;
+							$content = strip_tags( get_the_content($id) );
 							$content = ($content) ? shortenText($content,100,' ') : '';
+							$thumbID = get_post_thumbnail_id($id);
+							$img = ($thumbID) ? wp_get_attachment_image_src($thumbID,'large') : '';
+							$imgAlt = ($img) ? get_the_title($thumbID) : '';
 							?>
 							<div class="fcol news animated fadeIn">
 								<div class="inside">
-									<?php if ( has_post_thumbnail() ) { ?>
-									<div class="feat-image"><?php the_post_thumbnail('large') ?></div>	
+									<?php if ( $img ) { ?>
+									<div class="feat-image"><img src="<?php echo $img[0] ?>" alt="<?php echo $imgAlt ?>"></div>	
 									<?php } else { ?>
 									<div class="feat-image na"><img src="<?php echo $rectangle ?>" alt="" aria-hidden="true" class="placeholder"></div>
 									<?php } ?>
 									<div class="textwrap">
-										<div class="postdate"><?php echo get_the_date('F j, Y') ?></div>
-										<h3 class="posttitle"><?php echo get_the_title(); ?></h3>
+										<div class="postdate"><?php echo get_the_date('F j, Y',$id) ?></div>
+										<h3 class="posttitle"><?php echo get_the_title($id); ?></h3>
 										<div class="excerpt"><?php echo $content; ?></div>
-										<div class="button"><a href="<?php echo get_permalink(); ?>" class="more">Read More</a></div>
+										<div class="button"><a href="<?php echo get_permalink($id); ?>" class="more">Read More</a></div>
 									</div>
 								</div>
 							</div>
-						<?php endwhile; wp_reset_postdata(); ?>
+						<?php } wp_reset_postdata(); ?>
 						</div>
 
 						<?php 
-						$total_pages = $posts->max_num_pages;
+						$total_pages = ceil($total / $posts_per_page);
 						if($paged!=$total_pages) { ?>
 						<div class="morediv text-center"><a href="#" id="loadmore" data-maxpagenum="<?php echo $total_pages ?>" data-nextpage="<?php echo $paged ?>" class="btn-default">Load More</a></div>
 						<?php } else { ?>
@@ -129,6 +156,8 @@ $rectangle = THEMEURI . 'images/rectangle.png';
 				            ?>
 				        </div>
 						<?php } ?>
+
+						
 					</div>
 				</div>
 				<?php } else { ?>

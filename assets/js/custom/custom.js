@@ -38,12 +38,12 @@ jQuery(document).ready(function ($) {
     });
 
     /* Select Style */
-    var selectLabels = ['Year','Month','Vendor'];
-    var selectIds = ['#year','#month','#vendor'];
-    $(selectIds).each(function(k,id){
-    	var label = selectLabels[k];
-    	$(".selectstyle"+id).select2({ placeholder: label, allowClear: true });
+    $(".select-input-field").each(function(){
+    	var label = $(this).data("label");
+    	var id = $(this).data("id");
+    	$("select#"+id).select2({ placeholder: label, allowClear: true });
     });
+
 
 	$(".contactform select").select2();
 
@@ -142,32 +142,34 @@ jQuery(document).ready(function ($) {
 		GRAVITY FORM
 		First and Last name field 
 	*/
-	var firstName = $("span.name_first input").val().replace(/\s/g,'');
-	if(firstName) {
-		$("span.name_first").addClass('hasText');
-	} else {
-		$("span.name_first").removeClass('hasText');
-	}
-	var lastName = $("span.name_last input").val().replace(/\s/g,'');
-	if(lastName) {
-		$("span.name_last").addClass('hasText');
-	} else {
-		$("span.name_last").removeClass('hasText');
-	}
-
-	$("span.name_first input, span.name_last input").on("focus",function(){
-		var txt = $(this).val().replace(/\s/g,'');
-		var parent = $(this).parents("span");
-		parent.addClass("hasText");
-	});
-
-	$("span.name_first input, span.name_last input").on("blur focusout",function(){
-		var txt = $(this).val().replace(/\s/g,'');
-		var parent = $(this).parents("span");
-		if(txt=='') {
-			parent.removeClass("hasText");
+	if( $("span.name_first").length > 0 &&  $("span.name_last").length > 0 ) {
+		var firstName = $("span.name_first input").val().replace(/\s/g,'');
+		if(firstName) {
+			$("span.name_first").addClass('hasText');
+		} else {
+			$("span.name_first").removeClass('hasText');
 		}
-	});
+		var lastName = $("span.name_last input").val().replace(/\s/g,'');
+		if(lastName) {
+			$("span.name_last").addClass('hasText');
+		} else {
+			$("span.name_last").removeClass('hasText');
+		}
+
+		$("span.name_first input, span.name_last input").on("focus",function(){
+			var txt = $(this).val().replace(/\s/g,'');
+			var parent = $(this).parents("span");
+			parent.addClass("hasText");
+		});
+
+		$("span.name_first input, span.name_last input").on("blur focusout",function(){
+			var txt = $(this).val().replace(/\s/g,'');
+			var parent = $(this).parents("span");
+			if(txt=='') {
+				parent.removeClass("hasText");
+			}
+		});
+	}
 
 	/*
 	*

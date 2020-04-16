@@ -343,3 +343,96 @@ function assigned_term_to_post($post_id,$term_id) {
     return ($ok) ? $ok : '';
 }
 
+function get_news_filter_options() {
+    global $wpdb;
+    $output = array();
+    
+    // Year
+    $years = array();
+    $year_result = $wpdb->get_results("SELECT ID, YEAR(post_date) AS year FROM ".$wpdb->prefix."posts WHERE post_type='post' AND post_status='publish' GROUP BY YEAR(post_date) ORDER BY year DESC");
+    if($year_result) {
+        foreach($year_result as $r) {
+            $yr = $r->year;
+            $years[$yr] = $yr;
+        }
+        $output[] = array('label'=>'Year','slug'=>'yr','items'=>$years);
+    }
+
+    // Month
+    $months = array();
+    $month_result = $wpdb->get_results("SELECT ID, post_date, MONTH(post_date) AS month FROM ".$wpdb->prefix."posts WHERE post_type='post' AND post_status='publish' GROUP BY MONTH(post_date) ORDER BY month ASC");
+    if($month_result) {
+        foreach($month_result as $r) {
+            $monthNum = $r->month;
+            $dateObj = DateTime::createFromFormat('!m', $monthNum); 
+            $monthName = $dateObj->format('F'); 
+            $months[$monthNum] = $monthName;
+        }
+
+        $output[] = array('label'=>'Month','slug'=>'mo','items'=>$months);
+    }
+
+    //Vendors
+    $vendors = array();
+    $vendors_result = $wpdb->get_results("SELECT p.ID, m.meta_value FROM ".$wpdb->prefix."posts AS p, ".$wpdb->prefix."postmeta AS m WHERE p.ID=m.post_id AND p.post_type='post' AND p.post_status='publish' AND m.meta_key='partners' GROUP BY p.ID");
+    if($vendors_result){
+        foreach( $vendors_result as $v ) {
+            $metaVal = $v->meta_value;
+            if($metaVal) {
+                $data = @unserialize($metaVal);
+                if($data) {
+                    $id = $data[0];
+                    $partner = get_the_title($id);
+                    $vendors[$id] = array('ID'=>$id,'post_title'=>$partner,'slug'=>sanitize_title($partner));
+                }
+            }
+        }
+        $vendorArrs = array_values($vendors);
+        $vendors_sorted = sortArray($vendorArrs,'slug','ASC');
+        $vendorList = array();
+        foreach($vendors_sorted as $v) {
+            $i = $v['ID'];
+            $vendorList[$i] = $v['post_title'];
+        }
+
+        $output[] = array('label'=>'Vendor','slug'=>'vendor','items'=>$vendorList);
+    }
+
+    return $output;
+}
+
+function get_news_result_filter_by($params) {
+    $output = array();
+    
+}
+
+function sortArray($array, $sortByKey, $sortDirection) {
+
+    $sortArray = array();
+    $tempArray = array();
+
+    foreach ( $array as $key => $value ) {
+        $tempArray[] = trim(strtolower( $value[ $sortByKey ] ));
+    }
+
+    if($sortDirection=='ASC'){
+        sort($tempArray);
+    } else {
+        rsort($tempArray);
+    }
+
+    foreach($tempArray as $k=>$val) {
+        foreach($array as $a=>$b) {
+            $ref = $b[$sortByKey];
+            if($ref==$val) {
+                $sortArray[$k] = $b;
+            }
+        }
+    }
+
+    return $sortArray;
+}
+
+
+
+
