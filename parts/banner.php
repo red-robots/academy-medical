@@ -44,6 +44,11 @@ if( is_front_page() || is_home() ) {
 	<?php 
 	$header_image = get_field("header_image"); 
 	$page_title = get_the_title();
+	$parent_id = get_page_id_by_template('page-news');
+	if($parent_id) {
+		$header_image = get_field("header_image",$parent_id);
+		$page_title = get_the_title($parent_id);
+	}
 	$style = ($header_image) ? ' style="background-image:url('.$header_image['url'].')"':'';
 	?>
 

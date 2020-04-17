@@ -403,6 +403,70 @@ function get_news_filter_options() {
 
 function get_news_result_filter_by($params) {
     $output = array();
+    global $wpdb;
+    $year = ( isset($params['yr']) && $params['yr'] ) ? $params['yr'] : '';
+    $month = ( isset($params['mo']) && $params['mo'] ) ? $params['mo'] : '';
+    $vendor = ( isset($params['vendor']) && $params['vendor'] ) ? $params['vendor'] : '';
+    $perpage = ( isset($params['perpage']) && $params['perpage'] ) ? $params['perpage'] : 9;
+    $paged = ( isset($params['paged']) && $params['paged'] ) ? $params['paged'] : 1;
+    $records = array();
+    $query = "SELECT p.*, YEAR(p.post_date) AS year, MONTH(p.post_date) AS month FROM ".$wpdb->prefix."posts p WHERE p.post_type='post' AND p.post_status='publish'";
+    
+    if($year) {
+        $query .= " AND YEAR(p.post_date)=" . $year;
+    }
+    if($month) {
+        $query .= " AND MONTH(p.post_date)=" . $month;
+    }
+
+    $query .= " ORDER BY p.post_date DESC";
+
+    $result = $wpdb->get_results($query);
+    if($result) {
+        foreach($result as $row) {
+            $id = $row->ID;
+            if($vendor) {
+                $partners = get_field("partners",$id); /* ACF meta field */
+                if($partners) {
+                    foreach($partners as $p) {
+                        $row->partner_id = $p;
+                        if($p==$vendor) {
+                            $records[$id] = $row;
+                        }
+                    }
+                }
+            } else {
+                $records[$id] = $row;
+            }
+        }
+    }
+
+    $final_result = array();
+    $total = ($records) ? count($records) : 0;
+
+    if($records)  {
+        $posts = array_values($records);
+        $start = 0;
+        $end = $perpage - 1;
+        if($paged>1) {
+            $start = ($paged * $perpage) - $perpage;
+            $end  = ($paged * $perpage) - 1;
+        }
+
+        for( $i=$start; $i<=$end; $i++ ) {
+            if( isset($posts[$i]) && $posts[$i] ) {
+                $final_result[$i] = $posts[$i];
+            }
+        }
+    }
+
+    if($final_result) {
+        $output['total'] = $total;
+        $output['posts'] = $final_result;
+        return $output;
+    } else {
+        return false;
+    }
     
 }
 

@@ -86,30 +86,6 @@ jQuery(document).ready(function ($) {
 
 
 	/* News Pagination */
-	// $(document).on("click","#loadmore",function(e){
-	// 	e.preventDefault();
-	// 	var target = $(this);
-	// 	var next = $(this).data("nextpage");
-	// 	if( $("#pagination").length > 0 ) {
-	// 		var hasNext = ( $("#pagination a.next").length > 0 ) ? true : false;
-	// 		$("#pagination a").each(function(){
-	// 			var pagenum = $(this).text();
-	// 			var pagelink = $(this).attr("href");
-	// 			if(next == pagenum) {
-	// 				// $(".news-results").load(pagelink + ' #newsContent',function(){
-	// 				// 	window.history.pushState("",document.title,pagelink);
-	// 				// });
-	// 				$.get(pagelink,function(data){
-	// 					var output = $.parseHTML(data);
-	// 					var items = $(data).find("#newsInner").html();
-	// 					$("#newsInner").append(items);
-	// 					var nXt = (parseInt(next)) + 1;
-	// 					target.attr("data-nextpage",nXt);
-	// 				});
-	// 			}
-	// 		});
-	// 	}
-	// });
 	var n = 2;
 	$(document).on("click","#loadmore",function(e){
 		e.preventDefault();
@@ -121,21 +97,92 @@ jQuery(document).ready(function ($) {
 		
 		if(n<=maxpageNum) {
 			target.attr('data-nextpage',n);
-			var pagelink = currentURL + '?pg=' + n;
-			$.get(pagelink,function(data){
-				var output = $.parseHTML(data);
-				var items = $(data).find("#newsInner").html();
-				$("#newsInner").append(items);
-			});
+			//var pagelink = currentURL + '?pg=' + n;
+			var baseURL = '';
+			if( $("#pagination a.page-numbers").length > 0 ) {
+				$("#pagination a.page-numbers").each(function(k){
+					if(k==0) {
+						var link = $(this).attr("href");
+						var parts = link.split("pg=");
+						baseURL = parts[0];
+					}
+				});
+			}
+			if(baseURL) {
+				var new_base_url = baseURL + 'pg=' + n;
+				$.get(new_base_url,function(data){
+					var output = $.parseHTML(data);
+					var items = $(data).find("#newsInner").html();
+					$("#newsInner").append(items);
+				});
+			}
+			
 		}
 
 		if(end>maxpageNum) {
 			$(".morediv").html('<span class="end">No more posts to load.</span>');
 		}
-		
-		
 		n++;
 	});
+
+	$(document).on("change",".filter-wrapper select",function(){
+		$("#filterPostForm").trigger("submit");
+	});
+
+	/* Sidebar Articles */
+	
+	$( window ).resize(function() {
+		resize_sidebar_height();
+	});
+	resize_sidebar_height();
+	function resize_sidebar_height() {
+		var sidebar_article = $("#sidebar #recentPosts");
+		if( sidebar_article.length > 0 ) {
+			var sbHeight = $("ul.recent-posts").outerHeight();
+			sidebar_article.css("height",sbHeight+'px');
+		}
+	}
+	
+	var s=2;
+	$(document).on("click","#sbloadmore",function(e){
+		e.preventDefault();
+		var target = $(this);
+		var maxpageNum = $(this).data("maxpagenum");
+		var currentPage = $(this).data("nextpage");
+		var end = s+1;
+		var currentURL = window.location.href;
+		if(s<=maxpageNum) {
+			var baseURL = '';
+			if( $("#pagination a.page-numbers").length > 0 ) {
+				$("#pagination a.page-numbers").each(function(k){
+					if(k==0) {
+						var link = $(this).attr("href");
+						var parts = link.split("pg=");
+						baseURL = parts[0];
+					}
+				});
+			}
+			if(baseURL) {
+				var new_base_url = baseURL + 'pg=' + s;
+				$.get(new_base_url,function(data){
+					var output = $.parseHTML(data);
+					var items = $(data).find(".recent-posts").html();
+					$(".recent-posts").append(items);
+					$("#widget-articles").addClass('addedNewItems');
+					var container = $('#recentPosts'),
+					    scrollTo = $('.morediv');
+					container.animate({
+					    scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()
+					});
+				});
+			}
+		}
+		if(end>maxpageNum) {
+			$(".morediv").html('<span class="end">No more posts to load.</span>');
+		}
+		s++;
+	});
+
 
 
 	/* 

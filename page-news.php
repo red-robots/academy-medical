@@ -33,26 +33,36 @@ $rectangle = THEMEURI . 'images/rectangle.png';
 		<?php /* NEWS FEEDS */ ?>
 		<?php 
 		$filter_options = get_news_filter_options(); 
+		$s_year = ( isset($_GET['yr']) && $_GET['yr'] ) ? $_GET['yr'] : '';
+    	$s_month = ( isset($_GET['mo']) && $_GET['mo'] ) ? $_GET['mo'] : '';
+    	$s_vendor = ( isset($_GET['vendor']) && $_GET['vendor'] ) ? $_GET['vendor'] : '';
+
 		$params = array();
 		?>
 		<div class="news-section-wrapper cf">
 			<div class="wrapper cf">
 				<?php if ($filter_options) { ?>
 				<div class="filter-wrapper">
-					<form action="" method="get">
+					<form action="" method="get" id="filterPostForm">
 						<span class="label">Filter By:</span>
 						
 						<?php foreach ($filter_options as $opt ) { 
 							$label = $opt['label'];
+							$key = $opt['slug'];
 							$s_id = $opt['slug'];
 							$selections = $opt['items'];
 							$params[] = $s_id;
+							$selectedVal = '';
+							if( isset($_GET[$key]) && $_GET[$key] ) {
+								$selectedVal = $_GET[$key];
+							}
 							?>
 							<div id="select-<?php echo $s_id; ?>" class="select-input-field" data-label="<?php echo $label ?>" data-id="<?php echo $s_id; ?>">
 								<select name="<?php echo $s_id; ?>" id="<?php echo $s_id; ?>" class="form-control selectstyle">
 									<option></option>
-									<?php foreach ($selections as $k=>$val) { ?>
-									<option value="<?php echo $k ?>"><?php echo $val ?></option>
+									<?php foreach ($selections as $val=>$label) {
+									$selected = ( $val==$selectedVal ) ? ' selected':''; ?>
+									<option value="<?php echo $val ?>"<?php echo $selected ?>><?php echo $label ?></option>
 									<?php } ?>
 								</select>
 							</div>
@@ -78,9 +88,23 @@ $rectangle = THEMEURI . 'images/rectangle.png';
 				$post_type = 'post';
 				$posts = array();
 				$total = 0;
+				$total_text = '';
+				$is_filtered = false;
 
 				if($filterBy) {
+					$filterBy['perpage'] = $posts_per_page;
+					$filterBy['paged'] = $paged;
 					$result = get_news_result_filter_by($filterBy);
+					$is_filtered = true;
+					if($result) {
+						$posts = $result['posts'];
+						$total = $result['total'];
+						if($total>1) {
+							$total_text = $total . ' results';
+						} else {
+							$total_text = $total . ' result';
+						}
+					} 
 				} else {
 					$args = array(
 						'posts_per_page'=> $posts_per_page,
@@ -104,11 +128,14 @@ $rectangle = THEMEURI . 'images/rectangle.png';
 
 				if ( $posts ) {  ?>
 				<div class="news-results">
+					<?php if ($is_filtered) { ?>
+					<div id="totalItems"><?php echo $total_text ?></div>	
+					<?php } ?>
 					<div id="newsContent">
 						<div id="newsInner" class="flexwrap">
 						<?php foreach($posts as $item) {
 							$id = $item->ID;
-							$content = strip_tags( get_the_content($id) );
+							$content = strip_tags( $item->post_content );
 							$content = ($content) ? shortenText($content,100,' ') : '';
 							$thumbID = get_post_thumbnail_id($id);
 							$img = ($thumbID) ? wp_get_attachment_image_src($thumbID,'large') : '';
@@ -123,7 +150,7 @@ $rectangle = THEMEURI . 'images/rectangle.png';
 									<?php } ?>
 									<div class="textwrap">
 										<div class="postdate"><?php echo get_the_date('F j, Y',$id) ?></div>
-										<h3 class="posttitle"><?php echo get_the_title($id); ?></h3>
+										<h3 class="posttitle"><a href="<?php echo get_permalink($id); ?>"><?php echo get_the_title($id); ?></a></h3>
 										<div class="excerpt"><?php echo $content; ?></div>
 										<div class="button"><a href="<?php echo get_permalink($id); ?>" class="more">Read More</a></div>
 									</div>
@@ -137,7 +164,7 @@ $rectangle = THEMEURI . 'images/rectangle.png';
 						if($paged!=$total_pages) { ?>
 						<div class="morediv text-center"><a href="#" id="loadmore" data-maxpagenum="<?php echo $total_pages ?>" data-nextpage="<?php echo $paged ?>" class="btn-default">Load More</a></div>
 						<?php } else { ?>
-						<div class="morediv text-center endpage"><span>No more posts to load.</span></div>
+						<div class="morediv text-center endpage"><span class="end">No more posts to load.</span></div>
 						<?php } ?>
 
 						<?php if ($total_pages > 1){ ?>

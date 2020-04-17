@@ -1,35 +1,27 @@
 <?php
-/**
- * The template for displaying all single posts.
- *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
- *
- * @package bellaworks
- */
+get_header(); 
+$post_type = get_post_type();
+?>
 
-get_header(); ?>
+<div id="primary" class="content-area cf">
+	<?php if ( $post_type=='post' ) { 
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+		get_template_part( 'parts/content', 'news' );
+		
+	} else { ?>
+	<main id="main" class="site-main" role="main">
 
-		<?php
-		while ( have_posts() ) : the_post();
+	<?php while ( have_posts() ) : the_post();
 
-			get_template_part( 'template-parts/content', get_post_format() );
+		get_template_part( 'parts/content', get_post_format() );
 
-			the_post_navigation();
+	endwhile; // End of the loop.
+	?>
+	</main><!-- #main -->
 
-			// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() || get_comments_number() ) :
-				comments_template();
-			endif;
+	<?php } ?>
 
-		endwhile; // End of the loop.
-		?>
-
-		</main><!-- #main -->
-	</div><!-- #primary -->
+</div><!-- #primary -->
 
 <?php
-get_sidebar();
 get_footer();
