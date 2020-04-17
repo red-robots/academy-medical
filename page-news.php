@@ -164,7 +164,7 @@ $rectangle = THEMEURI . 'images/rectangle.png';
 						if($paged!=$total_pages) { ?>
 						<div class="morediv text-center"><a href="#" id="loadmore" data-maxpagenum="<?php echo $total_pages ?>" data-nextpage="<?php echo $paged ?>" class="btn-default">Load More</a></div>
 						<?php } else { ?>
-						<div class="morediv text-center endpage"><span class="end">No more posts to load.</span></div>
+						<!-- <div class="morediv text-center endpage"><span class="end">No more posts to load.</span></div> -->
 						<?php } ?>
 
 						<?php if ($total_pages > 1){ ?>
