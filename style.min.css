@@ -830,7 +830,7 @@ body.subpage .site-header{background:#eef0f1;border-bottom:1px solid #e9ebec}
 }.main-navigation ul.menu>li{float:left;margin:0}
 .main-navigation ul.menu a{display:inline-block;text-decoration:none;color:#23336a}
 .main-navigation ul.menu>li>a{font-size:15px;line-height:1.2;padding:4px 15px}
-.main-navigation ul.menu>li>a:hover{color:#FFF;background:#868fad}
+.main-navigation ul.menu>li>a:hover{color:#FFF;background:#0054a6}
 .main-navigation ul.menu>li.current_page_item:hover>a,.main-navigation ul.menu>li.current_page_item>a{color:#FFF;background:#23336a}
 body.hasbanner .main-navigation ul.menu>li>a{color:#FFF}
 #overlay{display:none;background:rgba(0,0,0,0.85);position:fixed;top:0;left:0;width:100%;height:100%;z-index:500}

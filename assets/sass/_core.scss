@@ -207,7 +207,8 @@ body.subpage {
 	}
 	ul.menu > li > a:hover {
 		color: #FFF;
-		background: tint($primary,45%);
+		//background: tint($primary,45%);
+		background: $secondary;
 	}
 	ul.menu > li.current_page_item:hover > a,
 	ul.menu > li.current_page_item > a {
