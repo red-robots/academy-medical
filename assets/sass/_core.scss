@@ -91,9 +91,12 @@ body {
 	font-family: $font_primary;
 	font-size: 15px;
 	line-height: 1.5;
-	background: $gray;
+	background: #FFF;
 	&.home {
 		background: #FFF;
+	}
+	&.page-template-page-contact {
+		background: $gray;
 	}
 }
 /* Header */
@@ -1680,6 +1683,104 @@ body.single-post {
 		#sbloadmore {
 			display: block;
 		}
+	}
+}
+
+/* Teams */
+.team-posts {
+	padding-top: 50px;
+	padding-bottom: 30px;
+	@include mid {
+		padding-top: 90px;
+		padding-bottom: 50px;
+	}
+	.team {
+		width: 100%;
+		float: left;
+		padding-left: 5%;
+		padding-right: 5%;
+		@include tab {
+			padding-left: 0;
+			padding-right: 0;
+		}
+		.inside {
+			border-top: 1px solid $gray;
+			padding-bottom: 25px;
+			padding-top: 50px;
+			@include tab {
+				padding-top: 50px;
+				padding-bottom: 50px;
+			}
+		}
+		&.first .inside {
+			border-top: none;
+			padding-top: 20px;
+			@include tab {
+				padding-top: 0;
+			}
+		}
+		.photo {
+			width: 100%;
+			float: left;
+			background-size: cover;
+			background-position: top center;
+			background-repeat: no-repeat;
+			margin-bottom: 20px;
+			@include tab {
+				width: 22%;
+				float: left;
+				margin-bottom: 0;
+			}
+			img {
+				width: 100%;
+				height: auto;
+				float: left;
+			}
+		}
+		.text {
+			width: 100%;
+			float: left;
+			@include tab {
+				width: 75%;
+				float: right;
+			}
+		}
+		.teaminfo {
+			margin-bottom: 22px;
+			.wrap {
+				display: inline-block;
+				border-bottom: 1px solid $secondary;
+				padding-bottom: 20px;
+			}
+		}
+		h2.name {
+			font-family: $font_secondary;
+			font-size: 2em;
+			font-weight: 600;
+			line-height: 1.2;
+			text-transform: uppercase;
+			color: $primary;
+			margin: 0 0;
+		}	
+		.jobtitle {
+			margin: 0 0;
+			font-family: $font_secondary;
+			font-size: 1.2em;
+			line-height: 1.2;
+			text-transform: uppercase;
+			color: $secondary;
+		}
+		.description {
+			p {
+				margin-top: 0;
+			}
+		}
+	}
+}
+body.single-teams .team-posts {
+	.team .inside {
+		padding-top: 0;
+		border-top: none;
 	}
 }
 

@@ -165,6 +165,15 @@ function set_custom_cpt_columns($columns) {
         $columns['taxonomy-partner-category'] = __( 'Categories', 'bellaworks' );
         $columns['date'] = __( 'Date', 'bellaworks' );
     }
+
+    if($post_type=='teams') {
+        unset( $columns['title'] );
+        unset( $columns['date'] );
+        $columns['title'] = __( 'Name', 'bellaworks' );
+        $columns['jobtitle'] = __( 'Job Title', 'bellaworks' );
+        $columns['photo'] = __( 'Photo', 'bellaworks' );
+        $columns['date'] = __( 'Date', 'bellaworks' );
+    }
     
     return $columns;
 }
@@ -189,6 +198,29 @@ function custom_post_column( $column, $post_id ) {
                 }
                 $the_photo .= '</span>';
                 echo $the_photo;
+                break;
+        }
+    }
+
+    if($post_type=='teams') {
+        switch ( $column ) {
+            case 'jobtitle' :
+                $jobtitle = get_field("jobtitle",$post_id);
+                echo ($jobtitle) ? $jobtitle : '';
+                break;
+
+            case 'photo' :
+                $img = get_field('photo',$post_id);
+                $img_src = ($img) ? $img['sizes']['thumbnail'] : '';
+                $the_photo = '<span class="tmphoto" style="display:inline-block;width:50px;height:50px;background:#e2e1e1;text-align:center;border:1px solid #CCC">';
+                if($img_src) {
+                   $the_photo .= '<img src="'.$img_src.'" alt="" style="width:100%;height:auto;" />';
+                } else {
+                    $the_photo .= '<i class="dashicons dashicons-businessperson" style="font-size:25px;position:relative;top:13px;left: -3px;opacity:0.3;"></i>';
+                }
+                $the_photo .= '</span>';
+                echo $the_photo;
+                break;
         }
     }
     

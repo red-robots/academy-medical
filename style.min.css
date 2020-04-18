@@ -806,8 +806,9 @@ pre{font-family:"Courier 10 Pitch",Courier,monospace;font-size:13px;line-height:
 .wrapper{max-width:1200px;width:100%;margin:0 auto;padding-left:20px;padding-right:20px;position:relative;overflow:hidden}
 .site{position:relative;overflow-x:hidden;overflow-y:auto}
 .flexwrap{display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-flex-direction:row;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}
-body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:15px;line-height:1.5;background:#eef0f1}
+body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:15px;line-height:1.5;background:#FFF}
 body.home{background:#FFF}
+body.page-template-page-contact{background:#eef0f1}
 .site-header{position:relative;z-index:100}
 .site-header .wrapper{padding-top:20px}
 .site-header .flexwrap{-webkit-justify-content:space-between;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center}
@@ -1091,6 +1092,25 @@ body.single-post .entry-header h1.entry-title{display:inline-block;font-size:2em
 body.single-post .entry-header h1.entry-title:after{content:"";display:block;width:50%;border-bottom:2px solid #4497ce;margin:15px 0 0}
 #sidebar h3.wtitle{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;font-weight:400;line-height:1.2;color:#23336a;text-transform:none;border-bottom:1px solid #4497ce;padding-bottom:10px;margin:0 0 20px}
 #sidebar .widget.articles #sbloadmore{display:block}
+.team-posts{padding-top:50px;padding-bottom:30px}
+@media(min-width:960px){.team-posts{padding-top:90px;padding-bottom:50px}
+}.team-posts .team{width:100%;float:left;padding-left:5%;padding-right:5%}
+@media(min-width:820px){.team-posts .team{padding-left:0;padding-right:0}
+}.team-posts .team .inside{border-top:1px solid #eef0f1;padding-bottom:25px;padding-top:50px}
+@media(min-width:820px){.team-posts .team .inside{padding-top:50px;padding-bottom:50px}
+}.team-posts .team.first .inside{border-top:0;padding-top:20px}
+@media(min-width:820px){.team-posts .team.first .inside{padding-top:0}
+}.team-posts .team .photo{width:100%;float:left;background-size:cover;background-position:top center;background-repeat:no-repeat;margin-bottom:20px}
+@media(min-width:820px){.team-posts .team .photo{width:22%;float:left;margin-bottom:0}
+}.team-posts .team .photo img{width:100%;height:auto;float:left}
+.team-posts .team .text{width:100%;float:left}
+@media(min-width:820px){.team-posts .team .text{width:75%;float:right}
+}.team-posts .team .teaminfo{margin-bottom:22px}
+.team-posts .team .teaminfo .wrap{display:inline-block;border-bottom:1px solid #4497ce;padding-bottom:20px}
+.team-posts .team h2.name{font-family:"PT Sans Narrow",sans-serif;font-size:2em;font-weight:600;line-height:1.2;text-transform:uppercase;color:#23336a;margin:0}
+.team-posts .team .jobtitle{margin:0;font-family:"PT Sans Narrow",sans-serif;font-size:1.2em;line-height:1.2;text-transform:uppercase;color:#4497ce}
+.team-posts .team .description p{margin-top:0}
+body.single-teams .team-posts .team .inside{padding-top:0;border-top:0}
 .site-footer{background:#23336a;color:#FFF;font-size:13px;width:100%;float:left;padding-top:30px;padding-bottom:30px}
 .site-footer .footer-content{max-width:100%;width:100%;margin:0 auto;padding-left:30px;padding-right:30px}
 @media(min-width:960px){.site-footer .footer-content{max-width:1200px}
