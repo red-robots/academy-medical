@@ -934,11 +934,28 @@ body.hasbanner {
 			}
 		}
 	}
+	.fcol.text {
+		padding-top: 30px;
+		padding-bottom: 40px;
+		@include tab {
+			padding-top: 0;
+			padding-bottom: 0;
+		}
+		.wrap {
+			padding: 20px 30px;
+			@include tab {
+				padding: 20px 10% 20px 4%;
+			}
+		}
+	}
 	.stitle {
 		margin: 0 0 5px;
 	}
-	.ctadiv {
+	.stext {
 		margin-top: 10px;
+	}
+	.ctadiv {
+		margin-top: 20px;
 	}
 }
 h1.entry-title {

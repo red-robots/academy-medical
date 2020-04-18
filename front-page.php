@@ -100,6 +100,7 @@ get_header();
 	$rectangle = THEMEURI . 'images/rectangle.png';
 	$row4_image = get_field("row4_col_image");
 	$row4_title = get_field("row4_title");
+	$row4_description = get_field("column_2_description");
 	$row4CTA = get_field("row4CTA");
 	$row4BtnName = ( isset($row4CTA['button_name']) && $row4CTA['button_name'] ) ? $row4CTA['button_name'] : '';
 	$row4BtnType = ( isset($row4CTA['button_type']) && $row4CTA['button_type'] ) ? $row4CTA['button_type'] : 'internal';
@@ -108,19 +109,22 @@ get_header();
 	$row4_class = ( $row4_image && ( $row4_title || ($row4BtnName && $row4BtnLink) ) ) ? 'half':'full';
 	if( $row4_image && ( $row4_title || ($row4BtnName && $row4BtnLink) ) ) { ?>
 	<section class="row4 cf <?php echo $row4_class ?>">
-		<div class="full-wrapper cf fadeIn wow" data-wow-delay=".5s">
+		<div class="full-wrapper cf">
 			<div class="flexwrap">
 				<?php if ($row4_image) { ?>
-					<div class="fcol image" style="background-image:url('<?php echo $row4_image['url']?>');">
+					<div class="fcol image fadeIn wow" data-wow-delay=".4s" style="background-image:url('<?php echo $row4_image['url']?>');">
 						<img src="<?php echo $rectangle ?>" alt="" aria-hidden="true" class="placeholder" />
 					</div>
 				<?php } ?>
 
 				<?php if ( $row4_title || ($row4BtnName && $row4BtnLink) ) { ?>
-					<div class="fcol text">
-						<div class="wrap text-center">
+					<div class="fcol text fadeIn wow" data-wow-delay=".8s">
+						<div class="wrap">
 							<?php if ($row4_title) { ?>
 							<h3 class="stitle"><?php echo $row4_title ?></h3>	
+							<?php } ?>
+							<?php if ($row4_description) { ?>
+							<div class="stext"><?php echo $row4_description ?></div>	
 							<?php } ?>
 							<?php if ($row4BtnName && $row4BtnLink) { ?>
 							<div class="ctadiv">

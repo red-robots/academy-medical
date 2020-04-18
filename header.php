@@ -28,9 +28,20 @@ $customClass = (get_field("banner")) ? 'hasbanner':'nobanner';
 
 	<header id="masthead" class="site-header" role="banner">
 		<div class="wrapper">
-			<div class="topbuttons">
-				<a href="#">Start Now</a>
-			</div>
+
+			<?php  
+			$btn = get_field("header_button","option");
+			$link_type = ( isset($btn['link_type']) && $btn['link_type'] ) ? $btn['link_type'] : 'internal';
+			$buttonLabel = ( isset($btn['button_label']) && $btn['button_label'] ) ? $btn['button_label'] : '';
+			$buttonLink = ( isset($btn[$link_type.'_link']) && $btn[$link_type.'_link'] ) ? $btn[$link_type.'_link'] : '';
+			
+			if ($buttonLabel && $buttonLink) { 
+				$opt = parse_external_url($buttonLink); ?>
+				<div class="topbuttons">
+					<a href="<?php echo $buttonLink ?>" target="<?php echo $opt['target'] ?>" class="<?php echo $opt['class'] ?>">Start Now</a>
+				</div>
+			<?php } ?>
+			
 			<div class="flexwrap">
 				<?php if( get_custom_logo() ) { ?>
 		            <div class="logo">

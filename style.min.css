@@ -954,8 +954,13 @@ body.hasbanner .site-header{position:absolute;top:0;left:0;width:100%}
 .row4 .fcol .wrap{width:100%}
 .row4.half .fcol{width:100%}
 @media(min-width:820px){.row4.half .fcol{width:50%}
+}.row4 .fcol.text{padding-top:30px;padding-bottom:40px}
+@media(min-width:820px){.row4 .fcol.text{padding-top:0;padding-bottom:0}
+}.row4 .fcol.text .wrap{padding:20px 30px}
+@media(min-width:820px){.row4 .fcol.text .wrap{padding:20px 10% 20px 4%}
 }.row4 .stitle{margin:0 0 5px}
-.row4 .ctadiv{margin-top:10px}
+.row4 .stext{margin-top:10px}
+.row4 .ctadiv{margin-top:20px}
 h1.entry-title{font-family:"PT Sans Narrow",sans-serif;font-size:3em;font-weight:500;line-height:1.2;margin:0 0 30px;color:#23336a;text-transform:uppercase}
 .content-area.default .site-main{min-height:35em}
 .parallax-window{min-height:400px;background:transparent}
