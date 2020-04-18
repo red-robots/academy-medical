@@ -889,7 +889,9 @@ body.open-menu .menu-toggle{right:87%;-webkit-transform:scale(0.6);-ms-transform
 }.slideTextContainer .smallTxt{font-size:1.7rem;font-weight:500;line-height:1.2;color:#FFF;text-shadow:0 1px 5px rgba(0,0,0,0.2)}
 @media(min-width:380px){.slideTextContainer .smallTxt{font-size:2rem}
 }@media(min-width:820px){.slideTextContainer .smallTxt{font-size:2.6em}
-}.scrolldown{position:absolute;left:0;bottom:2vh;width:100%;z-index:15}
+}#static-banner.slideTextContainer .inner-text{opacity:1;visibility:visible}
+#static-banner.slideTextContainer .textwrap:after{width:100%;-webkit-animation:animateBorderBottom 2.3s;animation:animateBorderBottom 2.3s}
+.scrolldown{position:absolute;left:0;bottom:2vh;width:100%;z-index:15}
 @media(min-width:820px){.scrolldown{bottom:0}
 }.scrolldown #scrolldown{display:block;width:35px;height:40px;text-decoration:none;position:relative;top:0;left:10px;margin-top:-10%;-webkit-transform:scale(0.75);-ms-transform:scale(0.75);transform:scale(0.75)}
 @media(min-width:820px){.scrolldown #scrolldown{-webkit-transform:none;-ms-transform:none;transform:none}

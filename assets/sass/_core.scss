@@ -536,6 +536,18 @@ body.hasbanner .main-navigation {
 		}
 	}
 }
+#static-banner.slideTextContainer {
+	.inner-text {
+		opacity: 1;
+		visibility: visible;
+	}
+	.textwrap:after {
+		width: 100%;
+		animation: animateBorderBottom 2.3s;
+	}
+	
+}
+
 .scrolldown {
 	position: absolute;
 	left: 0;

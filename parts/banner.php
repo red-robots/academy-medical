@@ -8,7 +8,9 @@ if( is_front_page() || is_home() ) {
 		<div class="bimage" style="background-image:url('<?php echo $banner['url'] ?>')">
 			<img src="<?php echo $placeholder ?>" alt="" aria-hidden="true" class="placeholder" />
 			<?php 
-			$slidesId = (count($taglines)>1) ? 'slideshow':'static-banner';
+			$totalSlides = count($taglines);
+			$slidesId = ($totalSlides>1) ? 'slideshow':'static-banner';
+			$isAnimated = ($totalSlides==1) ? ' fadeInLeft animated':'';
 			if ($taglines) { ?>
 			<div class="bcaption">
 				<div id="<?php echo $slidesId ?>" class="slideTextContainer wrapper swiper-container">
@@ -17,7 +19,7 @@ if( is_front_page() || is_home() ) {
 							<div class="swiper-slide">
 								<img src="<?php echo $placeholder ?>" alt="" aria-hidden="true" class="placeholder" />
 					    		<div class="inner-text">
-					    			<div class="textwrap">
+					    			<div class="textwrap<?php echo $isAnimated ?>">
 							    		<?php if ($tag['large_text']) { ?>
 							    		<h2 class="largeTxt"><?php echo $tag['large_text'] ?></h2>	
 							    		<?php } ?>
