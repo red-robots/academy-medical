@@ -63,8 +63,17 @@ if( is_front_page() || is_home() ) {
 
 
 	$style = ($header_image) ? ' style="background-image:url('.$header_image['url'].')"':'';
-	?>
 
+	?>
+	<?php if (is_404()) { ?>
+	<div class="hero cf">
+		<div class="inner">
+			<div class="wrapper">
+				<div class="titlediv"><h1 class="pagetitle border-animate"><span>Page Not Found!</span></h1></div>
+			</div>
+		</div>
+	</div>
+	<?php } else { ?>
 	<div class="hero cf"<?php echo $style ?>>
 		<div class="inner">
 			<div class="wrapper">
@@ -72,6 +81,7 @@ if( is_front_page() || is_home() ) {
 			</div>
 		</div>
 	</div>	
+	<?php } ?>
 	
 
 <?php } ?>

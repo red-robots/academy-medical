@@ -962,7 +962,7 @@ body.hasbanner .site-header{position:absolute;top:0;left:0;width:100%}
 .row4 .stext{margin-top:10px}
 .row4 .ctadiv{margin-top:20px}
 h1.entry-title{font-family:"PT Sans Narrow",sans-serif;font-size:3em;font-weight:500;line-height:1.2;margin:0 0 30px;color:#23336a;text-transform:uppercase}
-.content-area.default .site-main{min-height:35em}
+.content-area.default .site-main{min-height:25em}
 .parallax-window{min-height:400px;background:transparent}
 @media(min-width:820px){.parallax-mirror{width:80% !important;left:20% !important}
 }.hero{position:relative;width:100%;position:relative;background-size:cover;background-position:right center;background-repeat:no-repeat;background-color:#FFF;min-height:120px}
