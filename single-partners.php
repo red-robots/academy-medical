@@ -1,38 +1,56 @@
-<main id="main" class="site-main single-post" role="main">
+<?php 
+get_header(); 
+?>
+<main id="main" class="site-main vendorpost single-post" role="main">
 	<div class="wrapper">
 
 		<?php while ( have_posts() ) : the_post(); ?>
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-			
-			<?php if ( has_post_thumbnail() ) { ?>
-			<div class="feat-image"><?php the_post_thumbnail('large') ?></div>	
-			<?php } ?>
-
-			<header class="entry-header">
-				<p class="postmeta"><?php echo get_the_date('F j, Y'); ?></p>
-				<h1 class="entry-title"><?php the_title(); ?></h1>
-			</header><!-- .entry-header -->
-
-			<div class="entry-content">
+			<div class="wrap-inner">
 				<?php 
-				$partner = get_field("partners"); 
-				$partner_id = ($partner) ? $partner[0] : '';
+					$logo = get_field("logo"); 
+					$website = get_field("website"); 
 				?>
-				<?php the_content(); ?>
-				<?php if ($partner_id) { ?>
-				<div class="about-vendor"><a href="<?php echo get_permalink($partner_id); ?>" class="btn-more">About the Vendor</a></div>
+
+				<?php if ( $logo ) { ?>
+				<div class="imagecol">
+					<img src="<?php echo $logo['url'] ?>" alt="<?php echo $logo['title'] ?>">
+				</div>	
 				<?php } ?>
-			</div><!-- .entry-content -->
+
+				<div class="textcol <?php echo ($logo) ? 'half':'full' ?>">
+					<header class="entry-header">
+						<div class="wrap">
+							<h1 class="entry-title"><?php the_title(); ?></h1>
+							<?php if ($website) { ?>
+							<p class="website"><a href="<?php echo $website ?>" target="_blank"><?php echo $website ?></a></p>	
+							<?php } ?>
+						</div>
+					</header><!-- .entry-header -->
+
+					<div class="entry-content">
+						<?php 
+						$partner = get_field("partners"); 
+						$partner_id = ($partner) ? $partner[0] : '';
+						?>
+						<?php the_content(); ?>
+						<?php if ($partner_id) { ?>
+						<div class="about-vendor"><a href="<?php echo get_permalink($partner_id); ?>" class="btn-more">About the Vendor</a></div>
+						<?php } ?>
+					</div><!-- .entry-content -->
+				</div>
+			</div>
 
 		</article><!-- #post-## -->
 		<?php endwhile;  ?>
 
+
 		<?php
 		/* SIDE BAR */
 		$current_id = get_the_ID();
-		$posts_per_page = 4;
+		$posts_per_page = 5;
 		$paged = ( get_query_var( 'pg' ) ) ? absint( get_query_var( 'pg' ) ) : 1;
-		$post_type = 'post';
+		$post_type = 'partners';
 		$args = array(
 			'posts_per_page'=> $posts_per_page,
 			'post_type'		=> $post_type,
@@ -57,7 +75,7 @@
 		<aside id="sidebar" class="sidebar-right">
 			<?php if ($posts) { ?>
 			<div id="widget-articles" class="widget articles">
-				<h3 class="wtitle">More Articles</h3>
+				<h3 class="wtitle">Vendors</h3>
 				<div id="recentPosts">
 					<ul class="recent-posts">
 						<?php foreach ($posts as $p) { 
@@ -66,9 +84,9 @@
 						$link = get_permalink($id);
 						$content = strip_tags( $p->post_content );
 						$content = ($content) ? shortenText($content,100,' ') : '';
+						$logo = get_field("logo",$id);
 						?>
 						<li class="item animated fadeIn">
-							<p class="postdate"><?php echo get_the_date('F j, Y',$id); ?></p>
 							<h4><a href="<?php echo $link ?>"><?php echo $title ?></a></h4>
 							<p class="excerpt"><?php echo $content ?></p>
 							<div class="button"><a href="<?php echo $link ?>" class="btn-more">Read More</a></div>
@@ -104,5 +122,9 @@
 			</div>
 			<?php } ?>
 		</aside>
+
 	</div>
 </main>
+
+<?php
+get_footer();

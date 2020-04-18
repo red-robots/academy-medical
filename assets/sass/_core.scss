@@ -145,7 +145,7 @@ body {
 	}
 	@include tab {
 		top: 0;
-		width: 150px;
+		width: 155px;
 	}
 	a,img {
 		display: block;
@@ -1390,7 +1390,7 @@ body.page-template-page-news {
 				top: 50%;
 				left: 0;
 				transform: translateY(-50%);
-				color: #CCC;
+				color: #bbb;
 				font-size: 13px;
 			}
 		}
@@ -1482,6 +1482,7 @@ body.page-template-page-news {
 				font-weight: 600;
 				line-height: 1.2;
 				margin: 0 0 10px;
+				color: $primary;
 			}
 			p {
 				margin-top: 0;
@@ -1582,6 +1583,7 @@ body.subpage .gform_wrapper {
 }
 
 /* Single Post */
+body.single-partners,
 body.single-post {
 	background: #FFF;
 	#main {
@@ -1597,6 +1599,10 @@ body.single-post {
 		float: left;
 		@include tab {
 			width: 68%;
+		}
+		&.fullwidth {
+			width: 100%;
+			float: left;
 		}
 	}
 	#sidebar {
@@ -1810,6 +1816,147 @@ body.single-teams .team-posts {
 	.team .inside {
 		padding-top: 0;
 		border-top: none;
+	}
+}
+
+/* Vendors */
+body.page-template-page-vendors {
+	background: $gray;
+}
+.partners-posts {
+	padding-top: 50px;
+	padding-bottom: 50px;
+	@include tab {
+		padding-top: 80px;
+		padding-bottom: 80px;
+	}
+	.flexwrap {
+		@include flexgroup();
+		position: relative;
+		margin-left: -15px;
+		margin-right: -15px;
+		@include xs {
+			margin-left: -10px;
+			margin-right: -10px;
+		}
+		@include tab {
+			margin-left: -15px;
+			margin-right: -15px;
+		}
+	}
+	.vendor-info {
+		width: 100%;
+		padding: 15px;
+		@include xs {
+			width: 33.33%;
+			padding: 10px;
+		}
+		@include tab {
+			padding: 15px;
+		}
+		.inside {
+			background: #FFF;
+			padding: 20px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+			height: 100%;
+		}
+	}
+	.imagecol {
+		position: relative;
+		border-bottom: 1px solid $gray;
+		margin-bottom: 15px;
+		width: 100%;
+		float: left;
+		img {
+			width: 100%;
+			height: auto;
+			float: left;
+		}
+		&.nologo {
+			&:before {
+				content: "Image Not Available";
+				display: block;
+				width: 100%;
+				text-align: center;
+				position: absolute;
+				top: 50%;
+				left: 0;
+				transform: translateY(-50%);
+				color: #bbb;
+				font-size: 13px;
+			}
+		}
+		a {
+			display: block;
+			width: 100%;
+			float: left;
+		}
+	}
+	h2.name {
+		margin: 5px 0 5px;
+		font-family: $font_secondary;
+		font-size: 18px;
+		font-weight: 600;
+		line-height: 1.2;
+		color: $primary;
+	}
+}
+.vendorpost {
+	.hentry {
+		.flexwrap {
+			@include flexbox-justify(center);
+			@include flexbox-align-items(center);
+		}
+		.imagecol {
+			width: 100%;
+			float: left;
+			border-bottom: 1px solid $gray;
+			margin-bottom: 20px;
+			padding-bottom: 20px;
+			// @include tab {
+			// 	width: 22%;
+			// 	margin-bottom: 0;
+			// 	padding-bottom: 0;
+			// 	border-bottom: none;
+			// }
+			img {
+				display: block;
+				max-width: 320px;
+				width: 100%;
+				height: auto;
+				margin: 0 auto;
+				@include tab {
+					margin: 0 0;
+				}
+			}
+		}
+		.textcol {
+			width: 100%;
+			float: left;
+		}
+		.entry-header {
+			margin-bottom: 25px;
+			.wrap {
+				display: inline-block;
+				position: relative;
+				&:after {
+					content:"";
+					display: block;
+					width: 60%;
+					border-bottom: 2px solid $secondary;
+					margin-top: 20px;
+				}
+			}
+			h1.entry-title {
+				&:after {
+					display: none;
+				}
+			}
+			p.website {
+				margin: 0 0;
+				color: $secondary;
+			}
+		}
 	}
 }
 
