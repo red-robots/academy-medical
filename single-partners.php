@@ -8,8 +8,18 @@ get_header();
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<div class="wrap-inner">
 				<?php 
+					$post_id = get_the_ID();
 					$logo = get_field("logo"); 
 					$website = get_field("website"); 
+					$terms = get_the_terms($post_id,'partner-category');
+					$categories = '';
+					if($terms) {
+						foreach($terms as $k=>$term) {
+							$catName = $term->name;
+							$comma = ($k>0) ? ', ':'';
+							$categories .= $comma . $catName;
+						}
+					}
 				?>
 
 				<?php if ( $logo ) { ?>
@@ -21,9 +31,12 @@ get_header();
 				<div class="textcol <?php echo ($logo) ? 'half':'full' ?>">
 					<header class="entry-header">
 						<div class="wrap">
+							<?php if ($categories) { ?>
+							<p class="postmeta"><?php echo $categories; ?></p>
+							<?php } ?>
 							<h1 class="entry-title"><?php the_title(); ?></h1>
 							<?php if ($website) { ?>
-							<p class="website"><a href="<?php echo $website ?>" target="_blank"><?php echo $website ?></a></p>	
+							<p class="website" style="display:none;"><a href="<?php echo $website ?>" target="_blank"><?php echo $website ?></a></p>	
 							<?php } ?>
 						</div>
 					</header><!-- .entry-header -->
@@ -37,6 +50,11 @@ get_header();
 						<?php if ($partner_id) { ?>
 						<div class="about-vendor"><a href="<?php echo get_permalink($partner_id); ?>" class="btn-more">About the Vendor</a></div>
 						<?php } ?>
+
+						
+						<?php if ($website) { $siteName = rtrim($website, "/"); ?>
+						<p>For more information, visit <a href="<?php echo $website ?>" target="_blank"><?php echo $siteName ?></a></p>	
+						<?php } ?>
 					</div><!-- .entry-content -->
 				</div>
 			</div>
@@ -48,7 +66,7 @@ get_header();
 		<?php
 		/* SIDE BAR */
 		$current_id = get_the_ID();
-		$posts_per_page = 5;
+		$posts_per_page = 8;
 		$paged = ( get_query_var( 'pg' ) ) ? absint( get_query_var( 'pg' ) ) : 1;
 		$post_type = 'partners';
 		$args = array(
