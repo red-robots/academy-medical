@@ -33,6 +33,7 @@ function js_custom_init() {
         //     'supports'  => array('title','editor')
         // )
     );
+
     
     if($post_types) {
         foreach ($post_types as $p) {
