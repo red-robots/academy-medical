@@ -24,14 +24,6 @@ function js_custom_init() {
             'menu_icon' => 'dashicons-image-filter',
             'supports'  => array('title','editor')
         ),
-        // array(
-        //     'post_type' => 'advantages',
-        //     'menu_name' => 'Advantages',
-        //     'plural'    => 'Advantages',
-        //     'single'    => 'Advantage',
-        //     'menu_icon' => 'dashicons-star-filled',
-        //     'supports'  => array('title','editor')
-        // )
     );
 
     
