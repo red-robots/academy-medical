@@ -7,6 +7,8 @@
 get_header(); 
 $header_image = get_field("header_image"); 
 $has_header_image = ($header_image) ? 'has-header-image':'no-header-image';
+global $post;
+$slug = $post->post_name;
 ?>
 
 <div id="primary" class="content-area default cf <?php echo $has_header_image ?>">
@@ -50,7 +52,7 @@ $has_header_image = ($header_image) ? 'has-header-image':'no-header-image';
 				$delay = ($i+1) * 2;
 				$sec = '0.' . $delay;
 				?>
-				<div class="contentrow <?php echo $class ?> fadeInUp wow" data-wow-offset="10" data-wow-delay="<?php echo $sec?>s">
+				<div id="<?php echo $slug.'_row'.$i;?>" class="contentrow <?php echo $class ?> fadeInUp wow" data-wow-offset="10" data-wow-delay="<?php echo $sec?>s">
 					<div class="wrapper">
 						<div class="flexwrap cf">
 							<?php if ($title) { ?>

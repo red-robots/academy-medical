@@ -15,6 +15,8 @@
 get_header(); 
 $header_image = get_field("header_image"); 
 $has_header_image = ($header_image) ? 'has-header-image':'no-header-image';
+global $post;
+$slug = $post->post_name;
 ?>
 
 <div id="primary" class="content-area default cf <?php echo $has_header_image ?>">
@@ -56,7 +58,7 @@ $has_header_image = ($header_image) ? 'has-header-image':'no-header-image';
 					$class .= ' first';
 				}
 				?>
-				<div class="contentrow <?php echo $class ?>">
+				<div id="<?php echo $slug.'_row'.$i;?>" class="contentrow <?php echo $class ?>">
 					<div class="wrapper">
 						<div class="flexwrap cf">
 							<?php if ($title) { ?>

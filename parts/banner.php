@@ -69,7 +69,9 @@ if( is_front_page() || is_home() ) {
 	<div class="hero cf">
 		<div class="inner">
 			<div class="wrapper">
-				<div class="titlediv"><h1 class="pagetitle border-animate"><span>Page Not Found!</span></h1></div>
+				<div class="titlediv">
+					<h1 class="pagetitle border-animate"><span><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'bellaworks' ); ?></span></h1>
+				</div>
 			</div>
 		</div>
 	</div>

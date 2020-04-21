@@ -873,7 +873,7 @@ body.hasbanner {
 			}
 			&:hover {
 				transform: translateY(-12px);
-				box-shadow: 0 15px 30px rgba(0,0,0,.35);
+				// box-shadow: 0 15px 30px rgba(0,0,0,.35);
 				&:before {
 					background: tint($secondary,20%);
 					z-index: 20;
@@ -897,6 +897,7 @@ body.hasbanner {
 	}
 	.ctadiv {
 		margin-top: 30px;
+		padding-bottom: 10px;
 		@include tab {
 			margin-top: 50px;
 		}
@@ -1958,6 +1959,47 @@ body.page-template-page-vendors {
 				color: $secondary;
 			}
 		}
+	}
+}
+
+/* Sitemap */
+.sitemapnav {
+	max-width: 600px;
+	width: 100%;
+}
+#sitemap-menu {
+	margin: 0 0;
+	padding: 0 0;
+	list-style: none;
+	@include xs {
+		column-count: 2;
+	}
+	li {
+		position: relative;
+		padding-left: 13px;
+		&:before {
+			content:"";
+			display: block;
+			width: 6px;
+			height: 6px;
+			background: $secondary;
+			position: absolute;
+			top: 7px;
+			left: 0;
+		}
+	}
+}
+
+/* 404 */
+.error404 {
+	.hero {
+		min-height: auto;
+		height: auto;
+		margin-top: 50px;
+    	margin-bottom: 80px;
+	}
+	.page-title {
+		margin: 0 0;
 	}
 }
 

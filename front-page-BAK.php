@@ -54,8 +54,13 @@ get_header();
 	$row3BtnType = ( isset($row3CTA['button_type']) && $row3CTA['button_type'] ) ? $row3CTA['button_type'] : 'internal';
 	$row3BtnLink = ( isset($row3CTA[$row3BtnType.'_link']) && $row3CTA[$row3BtnType.'_link'] ) ? $row3CTA[$row3BtnType.'_link']:'';
 	$part3 = ($row3BtnLink) ? parse_external_url($row3BtnLink) : '';
-	$advantages = get_field("row3_boxes");
-	if ( $advantages ) { ?>
+	$args = array(
+		'posts_per_page' => -1,
+	    'post_type' => 'advantages',
+	    'post_status' => 'publish',
+	);
+	$advantages = new WP_Query($args);
+	if ( $advantages->have_posts() ) { ?>
 	<section class="row3 cf">
 		<div class="wrapper fadeIn wow" data-wow-delay=".5s">
 			<?php if ($row3_section_title) { ?>
@@ -63,31 +68,22 @@ get_header();
 			<?php } ?>
 			<div class="boxes cf">
 				<div class="flexwrap">
-				<?php foreach($advantages as $a) {
-					$img = $a['image'];
-					$title = $a['title'];
-					$text = $a['text'];
-					$target = $a['target'];
+				<?php while ( $advantages->have_posts() ) : $advantages->the_post();
+					$img = get_field("thumbnail");
+					$title = get_the_title();
+					$text = get_field("short_description");
 					$bg = ($img) ? ' style="background-image:url('.$img['url'].')"':'';
-					$openLink = '<div class="inside"'.$bg.'>';
-					$closeLink = '</div>';
-					$valuePageId = 15;
-					if($target) {
-						$pagelink = get_permalink($valuePageId) . '#' . $target;
-						$openLink = '<a href="'.$pagelink.'" class="inside"'.$bg.'>';
-						$closeLink = '</a>';
-					}
 					?>
 					<div class="box">
-						<?php echo $openLink ?>
+						<a href="<?php echo get_permalink(); ?>" class="inside"<?php echo $bg ?>>
 							<img src="<?php echo $portrait ?>" alt="" aria-hidden="true" class="placeholder">
 							<span class="text">
 								<h3 class="title"><?php echo $title ?></h3>
 								<?php echo $text ?>
 							</span>
-						<?php echo $closeLink ?>
+						</a>
 					</div>
-				<?php } ?>	
+				<?php endwhile; wp_reset_postdata(); ?>	
 				</div>
 			</div>
 			<?php if ($row3BtnName && $row3BtnLink) { ?>
