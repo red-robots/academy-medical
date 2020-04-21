@@ -8,14 +8,6 @@
 add_action('init', 'js_custom_init', 1);
 function js_custom_init() {
     $post_types = array(
-        // array(
-        //     'post_type' => 'testimonials',
-        //     'menu_name' => 'Testimonials',
-        //     'plural'    => 'Testimonials',
-        //     'single'    => 'Testimonial',
-        //     'menu_icon' => 'dashicons-format-quote',
-        //     'supports'  => array('title','editor')
-        // ),
         array(
             'post_type' => 'teams',
             'menu_name' => 'Teams',
@@ -32,14 +24,14 @@ function js_custom_init() {
             'menu_icon' => 'dashicons-image-filter',
             'supports'  => array('title','editor')
         ),
-        array(
-            'post_type' => 'advantages',
-            'menu_name' => 'Advantages',
-            'plural'    => 'Advantages',
-            'single'    => 'Advantage',
-            'menu_icon' => 'dashicons-star-filled',
-            'supports'  => array('title','editor')
-        )
+        // array(
+        //     'post_type' => 'advantages',
+        //     'menu_name' => 'Advantages',
+        //     'plural'    => 'Advantages',
+        //     'single'    => 'Advantage',
+        //     'menu_icon' => 'dashicons-star-filled',
+        //     'supports'  => array('title','editor')
+        // )
     );
     
     if($post_types) {
