@@ -38,7 +38,7 @@ $customClass = (get_field("banner")) ? 'hasbanner':'nobanner';
 			if ($buttonLabel && $buttonLink) { 
 				$opt = parse_external_url($buttonLink); ?>
 				<div class="topbuttons">
-					<a href="<?php echo $buttonLink ?>" target="<?php echo $opt['target'] ?>" class="<?php echo $opt['class'] ?>">Start Now</a>
+					<a href="<?php echo $buttonLink ?>" target="<?php echo $opt['target'] ?>" class="<?php echo $opt['class'] ?>"><?php echo $buttonLabel ?></a>
 				</div>
 			<?php } ?>
 			
